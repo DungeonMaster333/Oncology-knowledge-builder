@@ -4,8 +4,7 @@ import json
 import os
 
 
-FDA_URL = "https://www.fda.gov/drugs/resources-information-approved-drugs/oncology-cancerhematologic-malignancies-approval-notifications"
-
+FDA_URL = "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
 
 def collect_fda():
     """
