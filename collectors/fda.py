@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime, timezone
 import json
+import os
 
 FDA_URL = "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
 
@@ -17,23 +18,23 @@ def collect_fda():
         headers=headers
     )
 
-    # FDA may return an anti-abuse page to automated requests.
-    # We keep the response for diagnostic purposes.
+    result = {
+        "source": "FDA",
+        "source_url": FDA_URL,
+        "collected_at": datetime.now(timezone.utc).isoformat(),
+        "status": response.status_code,
+        "approval_count": 0,
+        "approvals": []
+    }
+
     if response.status_code != 200:
-        return {
-            "source": "FDA",
-            "url": FDA_URL,
-            "collected_at": datetime.now(timezone.utc).isoformat(),
-            "status": response.status_code,
-            "error": "FDA page could not be retrieved directly",
-            "content_preview": response.text[:500]
-        }
+        result["error"] = "FDA page could not be retrieved directly"
+        return result
 
     soup = BeautifulSoup(response.text, "html.parser")
 
     approvals = []
 
-    # FDA approval notifications are represented as links on the page.
     for link in soup.find_all("a", href=True):
         title = link.get_text(" ", strip=True)
         href = link.get("href")
@@ -41,10 +42,8 @@ def collect_fda():
         if not title or not href:
             continue
 
-        if (
-            "FDA approves" in title
-            or "FDA grants" in title
-        ):
+        if "FDA approves" in title or "FDA grants" in title:
+
             if href.startswith("/"):
                 href = "https://www.fda.gov" + href
 
@@ -53,25 +52,29 @@ def collect_fda():
                 "url": href
             })
 
-    # Remove duplicates
     seen = set()
-    unique_approvals = []
 
     for approval in approvals:
-        key = approval["url"]
+        if approval["url"] not in seen:
+            seen.add(approval["url"])
+            result["approvals"].append(approval)
 
-        if key not in seen:
-            seen.add(key)
-            unique_approvals.append(approval)
+    result["approval_count"] = len(result["approvals"])
 
-    return {
-        "source": "FDA",
-        "source_url": FDA_URL,
-        "collected_at": datetime.now(timezone.utc).isoformat(),
-        "status": response.status_code,
-        "approval_count": len(unique_approvals),
-        "approvals": unique_approvals
-    }
+    return result
+
+
+def save_result(result):
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+    os.makedirs("data/issues", exist_ok=True)
+
+    filename = f"data/issues/{today}-fda.json"
+
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+
+    print(f"Saved FDA data to: {filename}")
 
 
 if __name__ == "__main__":
@@ -79,5 +82,4 @@ if __name__ == "__main__":
 
     print(json.dumps(result, indent=2))
 
-    if result.get("status") == 200 and result.get("approval_count", 0) == 0:
-        print("WARNING: FDA page loaded but no approval entries were detected.")
+    save_result(result)
