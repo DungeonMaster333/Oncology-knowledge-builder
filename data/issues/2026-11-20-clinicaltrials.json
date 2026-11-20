@@ -1,0 +1,387 @@
+{
+  "source": "ClinicalTrials.gov",
+  "source_url": "https://clinicaltrials.gov/api/v2/studies",
+  "collected_at": "2026-11-20T03:55:02.149662+00:00",
+  "query": {
+    "query.cond": "cancer",
+    "pageSize": 20,
+    "format": "json"
+  },
+  "study_count": 20,
+  "studies": [
+    {
+      "nct_id": "NCT00192049",
+      "title": "A Randomized Study Comparing Single Agent Gemcitabine Intravesical Therapy Versus Mitomycin C in Patients With Intermediate Risk Superficial Bladder Cancer",
+      "status": "COMPLETED",
+      "phase": [
+        "PHASE2"
+      ],
+      "conditions": [
+        "Superficial Bladder Cancer"
+      ],
+      "interventions": [
+        "Gemcitabine",
+        "mitomycin C"
+      ],
+      "sponsor": "Eli Lilly and Company",
+      "start_date": "2003-12",
+      "completion_date": "2007-04"
+    },
+    {
+      "nct_id": "NCT07826949",
+      "title": "A Study of SRN-101 Administered Prior to Surgical Resection in Adults With Recurrent High-Grade Glioma.",
+      "status": "NOT_YET_RECRUITING",
+      "phase": [
+        "PHASE1"
+      ],
+      "conditions": [
+        "Recurrent High-Grade Gliomas",
+        "Brain Neoplasm",
+        "Glioma"
+      ],
+      "interventions": [
+        "SRN-101",
+        "Blood Specimen Collection",
+        "Surgical Resection",
+        "Magnetic Resonance Imaging (MRI)"
+      ],
+      "sponsor": "Nicholas Butowski",
+      "start_date": "2026-11-15",
+      "completion_date": "2032-01-31"
+    },
+    {
+      "nct_id": "NCT03555149",
+      "title": "A Study Evaluating the Efficacy and Safety of Multiple Immunotherapy-Based Treatment Combinations in Patients With Metastatic Colorectal Cancer (Morpheus-CRC)",
+      "status": "TERMINATED",
+      "phase": [
+        "PHASE1",
+        "PHASE2"
+      ],
+      "conditions": [
+        "Colorectal Cancer"
+      ],
+      "interventions": [
+        "Regorafenib",
+        "Atezolizumab",
+        "Imprime PGG",
+        "Bevacizumab",
+        "Isatuximab",
+        "Selicrelumab",
+        "Idasanutlin",
+        "AB928",
+        "LOAd703"
+      ],
+      "sponsor": "Hoffmann-La Roche",
+      "start_date": "2018-09-27",
+      "completion_date": "2022-09-26"
+    },
+    {
+      "nct_id": "NCT06458049",
+      "title": "Sexual Health and Rehabilitation Online (SHAREonline)",
+      "status": "ACTIVE_NOT_RECRUITING",
+      "phase": [
+        "NA"
+      ],
+      "conditions": [
+        "Cancer Survivorship",
+        "Sexual Function Disturbances"
+      ],
+      "interventions": [
+        "Group Session",
+        "Coaching Call",
+        "Educational Materials"
+      ],
+      "sponsor": "Dana-Farber Cancer Institute",
+      "start_date": "2025-02-19",
+      "completion_date": "2027-05-31"
+    },
+    {
+      "nct_id": "NCT07924449",
+      "title": "KRAS G12D-specific Immune Effector Cells Targeting KRAS G12D-positive Solid Tumors",
+      "status": "NOT_YET_RECRUITING",
+      "phase": [
+        "NA"
+      ],
+      "conditions": [
+        "Advanced Malignant Tumors With KRAS G12D Mutation"
+      ],
+      "interventions": [
+        "KRAS G12D-EIEs"
+      ],
+      "sponsor": "Shenzhen Geno-Immune Medical Institute",
+      "start_date": "2026-11-03",
+      "completion_date": "2030-06-30"
+    },
+    {
+      "nct_id": "NCT03878849",
+      "title": "Investigation of the Anti-tumor Effect of 2X-121 in Patients With Recurrent, Advanced Ovarian Cancer",
+      "status": "RECRUITING",
+      "phase": [
+        "PHASE2"
+      ],
+      "conditions": [
+        "Advanced Ovarian Cancer"
+      ],
+      "interventions": [
+        "2X-121",
+        "2X-121"
+      ],
+      "sponsor": "Allarity Therapeutics",
+      "start_date": "2019-04-15",
+      "completion_date": "2027-09"
+    },
+    {
+      "nct_id": "NCT05388058",
+      "title": "Topical Cannabidiol for the Treatment of Chemotherapy-Induced Peripheral Neuropathy",
+      "status": "COMPLETED",
+      "phase": [
+        "PHASE2"
+      ],
+      "conditions": [
+        "Chemotherapy-Induced Peripheral Neuropathy",
+        "Malignant Solid Neoplasm"
+      ],
+      "interventions": [
+        "Cannabidiol",
+        "Placebo Administration",
+        "Quality-of-Life Assessment",
+        "Questionnaire Administration"
+      ],
+      "sponsor": "Mayo Clinic",
+      "start_date": "2022-06-09",
+      "completion_date": "2023-07-28"
+    },
+    {
+      "nct_id": "NCT07791758",
+      "title": "A Clinical Trial of LBL-024 Combination Drug in Patients With Metastatic Colorectal Carcinoma",
+      "status": "RECRUITING",
+      "phase": [
+        "PHASE1",
+        "PHASE2"
+      ],
+      "conditions": [
+        "Metastatic Colorectal Carcinoma"
+      ],
+      "interventions": [
+        "LBL-024 for Injection",
+        "Bevacizumab injection",
+        "Oxaliplatin injection",
+        "Capecitabine tablets",
+        "Fruquintinib Capsules"
+      ],
+      "sponsor": "Nanjing Leads Biolabs Co.,Ltd",
+      "start_date": "2026-09-28",
+      "completion_date": "2030-09-04"
+    },
+    {
+      "nct_id": "NCT03343249",
+      "title": "Adjunctive Smart Phone Based Smoking Cessation Treatment",
+      "status": "COMPLETED",
+      "phase": [
+        "NA"
+      ],
+      "conditions": [
+        "High-Risk Cancer"
+      ],
+      "interventions": [
+        "Smart Phone Based Smoking Cessation"
+      ],
+      "sponsor": "University of Texas Southwestern Medical Center",
+      "start_date": "2014-06",
+      "completion_date": "2018-09"
+    },
+    {
+      "nct_id": "NCT04638049",
+      "title": "Intestinal Microbiota in Prostate Cancer Patients as a Biomarker for Radiation-INduced Toxicity (IMPRINT)",
+      "status": "COMPLETED",
+      "phase": [
+        "NA"
+      ],
+      "conditions": [
+        "Prostate Cancer",
+        "Prostate Adenocarcinoma",
+        "Prostatic Neoplasms"
+      ],
+      "interventions": [
+        "Collection of human biofluids",
+        "Patient reported outcome measures"
+      ],
+      "sponsor": "University Hospital, Ghent",
+      "start_date": "2020-08-25",
+      "completion_date": "2022-08-08"
+    },
+    {
+      "nct_id": "NCT01852838",
+      "title": "The Contribution of Induced Glycolysis to the Exhaled Volatile Organic Compounds' (VOCs) Signature in Lung Cancer",
+      "status": "UNKNOWN",
+      "phase": [],
+      "conditions": [
+        "Lung Cancer"
+      ],
+      "interventions": [],
+      "sponsor": "Sheba Medical Center",
+      "start_date": "2013-09",
+      "completion_date": "2015-04"
+    },
+    {
+      "nct_id": "NCT02863458",
+      "title": "DNA Hypomethylating Agents and Lenalidomide in Elderly Patients With Myeloid Malignancies in the US",
+      "status": "WITHDRAWN",
+      "phase": [],
+      "conditions": [
+        "Acute Myeloid Leukemia",
+        "Myelodysplastic Syndromes"
+      ],
+      "interventions": [],
+      "sponsor": "The Cleveland Clinic",
+      "start_date": "2018-09-01",
+      "completion_date": "2020-09-30"
+    },
+    {
+      "nct_id": "NCT07339748",
+      "title": "A Clinical Study of ZL-85FA Tablets",
+      "status": "NOT_YET_RECRUITING",
+      "phase": [
+        "PHASE1",
+        "PHASE2"
+      ],
+      "conditions": [
+        "Advanced Solid Tumor"
+      ],
+      "interventions": [
+        "ZL-85FA tablets",
+        "ZL-85FA tablets",
+        "ZL-85FA tablets",
+        "ZL-85FA tablets",
+        "ZL-85FA tablets",
+        "ZL-85FA tablets",
+        "ZL-85FA tablets",
+        "ZL-85FA tablets",
+        "ZL-85FA tablets"
+      ],
+      "sponsor": "Chengdu Zenitar Biomedical Technology Co., Ltd",
+      "start_date": "2026-06-30",
+      "completion_date": "2028-12-31"
+    },
+    {
+      "nct_id": "NCT02352948",
+      "title": "A Global Study to Assess the Effects of MEDI4736 (Durvalumab), Given as Monotherapy or in Combination With Tremelimumab Determined by PD-L1 Expression Versus Standard of Care in Patients With Locally Advanced or Metastatic Non Small Cell Lung Cancer",
+      "status": "COMPLETED",
+      "phase": [
+        "PHASE3"
+      ],
+      "conditions": [
+        "Non - Small Cell Lung Cancer NSCLC"
+      ],
+      "interventions": [
+        "MEDI4736 (durvalumab)",
+        "Vinorelbine",
+        "Gemcitabine",
+        "Erlotinib",
+        "MEDI4736 (durvalumab) in combination with tremelimumab (anti-CTLA4)",
+        "tremelimumab (anti-CTLA4)"
+      ],
+      "sponsor": "AstraZeneca",
+      "start_date": "2015-01-13",
+      "completion_date": "2023-08-30"
+    },
+    {
+      "nct_id": "NCT05297955",
+      "title": "Circulating Tumor Cell Detection in Hepatocellular Carcinoma",
+      "status": "COMPLETED",
+      "phase": [],
+      "conditions": [
+        "Circulating Tumor Cell"
+      ],
+      "interventions": [],
+      "sponsor": "Tongji Hospital",
+      "start_date": "2013-11-01",
+      "completion_date": "2022-03-15"
+    },
+    {
+      "nct_id": "NCT04581655",
+      "title": "ONCOTIPNET: Multicenter Study on Risk Factors and Outcome in Cancer Pediatric Patients Admitted in Italian PICUs",
+      "status": "COMPLETED",
+      "phase": [],
+      "conditions": [
+        "Pediatric Cancer",
+        "Critically Ill"
+      ],
+      "interventions": [],
+      "sponsor": "Azienda Ospedaliera di Padova",
+      "start_date": "2021-03-01",
+      "completion_date": "2022-07-01"
+    },
+    {
+      "nct_id": "NCT01490749",
+      "title": "Trial of XELOX Followed by Radiation Combined With Carboplatin and RAD001 for Esophageal Cancer",
+      "status": "COMPLETED",
+      "phase": [
+        "PHASE1"
+      ],
+      "conditions": [
+        "Esophageal Cancer",
+        "Neoplasms, Esophageal"
+      ],
+      "interventions": [
+        "RAD001",
+        "XELOX",
+        "Carboplatin",
+        "Radiation"
+      ],
+      "sponsor": "Emory University",
+      "start_date": "2012-02",
+      "completion_date": "2019-02"
+    },
+    {
+      "nct_id": "NCT05606549",
+      "title": "Effect of MSD on FCR Among Gastric Cancer Survivors",
+      "status": "UNKNOWN",
+      "phase": [
+        "NA"
+      ],
+      "conditions": [
+        "Stomach Cancer；Clinical Control Trial"
+      ],
+      "interventions": [
+        "Marital self disclosure"
+      ],
+      "sponsor": "University of Malaya",
+      "start_date": "2022-10-19",
+      "completion_date": "2024-04-20"
+    },
+    {
+      "nct_id": "NCT02377258",
+      "title": "IBD Cancer and Serious Infection in Europe",
+      "status": "COMPLETED",
+      "phase": [],
+      "conditions": [
+        "IBD"
+      ],
+      "interventions": [
+        "Non Interventional"
+      ],
+      "sponsor": "Groupe d'Etude Therapeutique des Affections Inflammatoires Digestives",
+      "start_date": "2016-03-04",
+      "completion_date": "2022-05-16"
+    },
+    {
+      "nct_id": "NCT04631458",
+      "title": "Outcomes in Patients With Myeloproliferative Neoplasm and Splanchnic Vein Thrombosis",
+      "status": "UNKNOWN",
+      "phase": [],
+      "conditions": [
+        "Myeloproliferative Neoplasm",
+        "Splanchnic Vein Thrombosis",
+        "Splanchnic Venous Thrombosis",
+        "Myeloproliferative Disorders"
+      ],
+      "interventions": [
+        "standard of care."
+      ],
+      "sponsor": "Royal Free Hospital NHS Foundation Trust",
+      "start_date": "2014-11-12",
+      "completion_date": "2021-12-30"
+    }
+  ]
+}
