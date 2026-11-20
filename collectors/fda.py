@@ -5,8 +5,7 @@ import json
 import os
 import re
 
-FDA_RSS_URL = "https://www.fda.gov/about-fda/contact-fda/subscribe-podcasts-and-news-feeds"
-
+FDA_RSS_URL = "https://www.fda.gov/AboutFDA/ContactFDA/StayInformed/RSSFeeds/Drugs/rss.xml"
 
 ONCOLOGY_KEYWORDS = [
     "cancer",
@@ -22,51 +21,66 @@ ONCOLOGY_KEYWORDS = [
     "melanoma",
     "metastatic",
     "neoplasm",
-    "oncologic",
 ]
 
 
 def collect_fda():
-    headers = {
-        "User-Agent": "OncologyKnowledgeBuilder/1.0"
-    }
 
     response = requests.get(
         FDA_RSS_URL,
         timeout=30,
-        headers=headers
+        headers={
+            "User-Agent": "OncologyKnowledgeBuilder/1.0",
+            "Accept": "application/rss+xml, application/xml, text/xml, */*"
+        }
     )
 
     response.raise_for_status()
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    soup = BeautifulSoup(response.content, "xml")
 
-    feeds = []
+    approvals = []
 
-    for link in soup.find_all("a", href=True):
+    for item in soup.find_all("item"):
 
-        title = link.get_text(" ", strip=True)
-        href = link["href"].strip()
+        title = item.find("title")
+        link = item.find("link")
+        description = item.find("description")
+        pub_date = item.find("pubDate")
 
-        if not title or not href:
-            continue
+        title_text = title.get_text(" ", strip=True) if title else ""
+        description_text = (
+            description.get_text(" ", strip=True)
+            if description else ""
+        )
+        link_text = link.get_text(strip=True) if link else ""
 
-        if "What's New" in title and "Drugs" in title:
+        combined_text = (
+            title_text + " " + description_text
+        ).lower()
 
-            if href.startswith("/"):
-                href = "https://www.fda.gov" + href
+        # Keep only oncology/cancer-related FDA updates
+        if any(
+            keyword in combined_text
+            for keyword in ONCOLOGY_KEYWORDS
+        ):
 
-            feeds.append({
-                "title": title,
-                "url": href
+            approvals.append({
+                "title": title_text,
+                "url": link_text,
+                "published": (
+                    pub_date.get_text(strip=True)
+                    if pub_date else None
+                ),
+                "description": description_text
             })
 
     return {
         "source": "FDA",
         "source_url": FDA_RSS_URL,
         "collected_at": datetime.now(timezone.utc).isoformat(),
-        "feed_count": len(feeds),
-        "feeds": feeds
+        "approval_count": len(approvals),
+        "approvals": approvals
     }
 
 
@@ -93,6 +107,10 @@ if __name__ == "__main__":
 
     result = collect_fda()
 
-    print(json.dumps(result, indent=2, ensure_ascii=False))
+    print(json.dumps(
+        result,
+        indent=2,
+        ensure_ascii=False
+    ))
 
     save_result(result)
