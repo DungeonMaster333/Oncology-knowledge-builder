@@ -26,42 +26,78 @@ ONCOLOGY_TERMS = [
     "prostate cancer",
     "colorectal cancer",
     "pancreatic cancer",
+    "ovarian cancer",
+    "endometrial cancer",
+    "gastric cancer",
+    "bladder cancer",
+    "renal cell",
+    "hepatocellular",
     "multiple myeloma",
 ]
 
 
 def collect_fda():
 
-    params = {
-        "limit": 99
-    }
+    all_records = []
 
-    response = requests.get(
-        FDA_API_URL,
-        params=params,
-        timeout=30,
-        headers={
-            "User-Agent": "OncologyKnowledgeBuilder/1.0"
+    skip = 0
+    batch_size = 100
+
+    # Retrieve several batches instead of only the first 99 records
+    for _ in range(10):
+
+        params = {
+            "limit": batch_size,
+            "skip": skip
         }
-    )
 
-    response.raise_for_status()
+        response = requests.get(
+            FDA_API_URL,
+            params=params,
+            timeout=30,
+            headers={
+                "User-Agent": "OncologyKnowledgeBuilder/1.0"
+            }
+        )
 
-    data = response.json()
+        if response.status_code == 404:
+            break
+
+        response.raise_for_status()
+
+        data = response.json()
+
+        records = data.get("results", [])
+
+        if not records:
+            break
+
+        all_records.extend(records)
+
+        skip += batch_size
 
     oncology_records = []
 
-    for record in data.get("results", []):
+    for record in all_records:
 
         record_text = json.dumps(
             record,
             ensure_ascii=False
         ).lower()
 
-        if any(
-            term in record_text
+        matched_terms = [
+            term
             for term in ONCOLOGY_TERMS
-        ):
+            if term in record_text
+        ]
+
+        if matched_terms:
+
+            products = record.get("products", [])
+
+            submissions = record.get(
+                "submissions", []
+            )
 
             oncology_records.append({
                 "application_number": record.get(
@@ -70,15 +106,9 @@ def collect_fda():
                 "sponsor": record.get(
                     "sponsor_name"
                 ),
-                "products": record.get(
-                    "products", []
-                ),
-                "submissions": record.get(
-                    "submissions", []
-                ),
-                "openfda": record.get(
-                    "openfda", {}
-                )
+                "matched_terms": matched_terms,
+                "products": products,
+                "submissions": submissions
             })
 
     return {
@@ -88,7 +118,7 @@ def collect_fda():
             timezone.utc
         ).isoformat(),
         "records_retrieved": len(
-            data.get("results", [])
+            all_records
         ),
         "oncology_records": len(
             oncology_records
