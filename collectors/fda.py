@@ -1,410 +1,294 @@
 import json
-import os
 import re
 from datetime import datetime, timezone
+from html import unescape
 from pathlib import Path
 
 import requests
+from bs4 import BeautifulSoup
 
 
-FDA_URL = "https://api.fda.gov/drug/drugsfda.json"
+FDA_ONCOLOGY_URL = (
+    "https://www.fda.gov/drugs/cancer-approvals/"
+    "oncology-cancerhematologic-malignancies-approval-notifications"
+)
 
 OUTPUT_DIR = Path("data/issues")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-ONCOLOGY_TERMS = [
-    "cancer",
-    "oncology",
-    "carcinoma",
-    "sarcoma",
-    "lymphoma",
-    "leukemia",
-    "myeloma",
-    "melanoma",
-    "tumor",
-    "tumour",
-    "neoplasm",
-    "neoplastic",
-    "metastatic",
-    "metastasis",
-    "solid tumor",
-    "solid tumour",
-    "prostate",
-    "breast cancer",
-    "lung cancer",
-    "colorectal",
-    "colorectal cancer",
-    "pancreatic",
-    "ovarian",
-    "gastric cancer",
-    "bladder cancer",
-    "renal cell",
-    "kidney cancer",
-    "hepatocellular",
-    "liver cancer",
-    "glioma",
-    "glioblastoma",
-    "head and neck cancer",
-    "multiple myeloma",
-    "acute myeloid",
-    "acute lymphoblastic",
-    "chronic lymphocytic",
-    "chronic myeloid",
-    "non-small cell",
-    "small cell lung",
-    "immunotherapy",
-    "antineoplastic",
-    "antitumor",
-    "antitumour",
-    "chemotherapy",
-    "checkpoint inhibitor",
-    "car-t",
-    "bispecific",
-]
 
-
-def clean_text(value):
-    if value is None:
+def clean_text(text):
+    if not text:
         return ""
 
-    if isinstance(value, list):
-        return ", ".join(clean_text(x) for x in value if clean_text(x))
-
-    if isinstance(value, dict):
-        return ", ".join(
-            f"{k}: {clean_text(v)}"
-            for k, v in value.items()
-            if clean_text(v)
-        )
-
-    return str(value).strip()
+    text = unescape(text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
 
 
-def normalize(value):
-    return re.sub(r"\s+", " ", clean_text(value)).strip()
+def extract_date(text):
+    match = re.search(
+        r"(\d{1,2}/\d{1,2}/\d{4})",
+        text
+    )
 
+    if match:
+        return match.group(1)
 
-def contains_oncology_terms(value):
-    text = normalize(value).lower()
-    return any(term in text for term in ONCOLOGY_TERMS)
+    match = re.search(
+        r"(January|February|March|April|May|June|July|August|"
+        r"September|October|November|December)\s+"
+        r"\d{1,2},\s+\d{4}",
+        text
+    )
 
+    if match:
+        return match.group(0)
 
-def first_non_empty(*values):
-    for value in values:
-        cleaned = normalize(value)
-        if cleaned:
-            return cleaned
     return ""
 
 
-def extract_products(record):
-    products = []
+def extract_drug_company(text):
+    """
+    Extracts patterns such as:
 
-    for product in record.get("products", []) or []:
-        products.append(
-            {
-                "brand_name": normalize(product.get("brand_name")),
-                "active_ingredients": normalize(
-                    product.get("active_ingredients")
-                ),
-                "dosage_form": normalize(product.get("dosage_form")),
-                "route": normalize(product.get("route")),
-                "marketing_status": normalize(
-                    product.get("marketing_status")
-                ),
-                "te_code": normalize(product.get("te_code")),
-            }
-        )
+    neladalkib (Nelkarmi, Nuvalent, Inc.)
+    giredestrant (Wilserdly, Genentech, Inc.)
+    """
 
-    return products
-
-
-def extract_submissions(record):
-    submissions = []
-
-    for submission in record.get("submissions", []) or []:
-        submissions.append(
-            {
-                "submission_number": normalize(
-                    submission.get("submission_number")
-                ),
-                "submission_type": normalize(
-                    submission.get("submission_type")
-                ),
-                "submission_status": normalize(
-                    submission.get("submission_status")
-                ),
-                "submission_class_code": normalize(
-                    submission.get("submission_class_code")
-                ),
-                "submission_class_code_description": normalize(
-                    submission.get("submission_class_code_description")
-                ),
-                "action_type": normalize(
-                    submission.get("action_type")
-                ),
-                "submission_publication_date": normalize(
-                    submission.get("submission_publication_date")
-                ),
-                "review_priority": normalize(
-                    submission.get("review_priority")
-                ),
-            }
-        )
-
-    return submissions
-
-
-def choose_product(products):
-    if not products:
-        return {}
-
-    # Prefer products with an actual brand name.
-    branded = [p for p in products if p.get("brand_name")]
-    if branded:
-        return branded[0]
-
-    return products[0]
-
-
-def build_event_title(record, product, submission):
-    brand = product.get("brand_name", "")
-    ingredient = product.get("active_ingredients", "")
-    action = submission.get("action_type", "")
-
-    asset = first_non_empty(brand, ingredient, record.get("application_number"))
-
-    if action:
-        return f"{asset} — FDA {action}"
-
-    return f"{asset} — FDA regulatory update"
-
-
-def build_event_description(record, product, submission):
-    parts = []
-
-    action = submission.get("action_type")
-    submission_type = submission.get("submission_type")
-    status = submission.get("submission_status")
-    application = record.get("application_number")
-
-    if action:
-        parts.append(action)
-
-    if submission_type:
-        parts.append(submission_type)
-
-    if status:
-        parts.append(status)
-
-    if application:
-        parts.append(f"Application {application}")
-
-    return " · ".join(parts) or "FDA regulatory development"
-
-
-def process_record(record):
-    products = extract_products(record)
-    submissions = extract_submissions(record)
-
-    # Search the entire FDA record for oncology relevance.
-    searchable = json.dumps(record, ensure_ascii=False)
-
-    if not contains_oncology_terms(searchable):
-        return None
-
-    product = choose_product(products)
-
-    # Prefer the most recent submission with a publication date.
-    dated_submissions = [
-        s
-        for s in submissions
-        if s.get("submission_publication_date")
-    ]
-
-    if dated_submissions:
-        dated_submissions.sort(
-            key=lambda x: x["submission_publication_date"],
-            reverse=True,
-        )
-        submission = dated_submissions[0]
-    elif submissions:
-        submission = submissions[0]
-    else:
-        submission = {}
-
-    brand = product.get("brand_name", "")
-    ingredient = product.get("active_ingredients", "")
-
-    asset = first_non_empty(
-        brand,
-        ingredient,
-        record.get("application_number"),
+    match = re.search(
+        r"\bto\s+([a-zA-Z0-9\-]+)\s+\(([^,]+),\s*([^)]+)\)",
+        text,
+        flags=re.IGNORECASE,
     )
 
-    company = first_non_empty(
-        record.get("sponsor_name"),
-        record.get("sponsor"),
-        "Not specified",
+    if match:
+        return (
+            clean_text(match.group(1)),
+            clean_text(match.group(2)),
+            clean_text(match.group(3)),
+        )
+
+    # Fallback: look for "drug (brand, company)"
+    match = re.search(
+        r"\b([a-zA-Z0-9\-]+)\s+\(([^,]+),\s*([^)]+)\)",
+        text
     )
 
-    oncology_match = [
-        term
-        for term in ONCOLOGY_TERMS
-        if term.lower() in searchable.lower()
-    ]
+    if match:
+        return (
+            clean_text(match.group(1)),
+            clean_text(match.group(2)),
+            clean_text(match.group(3)),
+        )
 
-    return {
-        "source": "FDA",
-        "source_type": "regulatory",
-        "title": build_event_title(
-            record,
-            product,
-            submission,
-        ),
-        "asset": asset,
-        "brand_name": brand,
-        "active_ingredients": ingredient,
-        "company": company,
-        "application_number": normalize(
-            record.get("application_number")
-        ),
-        "application_type": normalize(
-            record.get("application_type")
-        ),
-        "dosage_form": product.get("dosage_form", ""),
-        "route": product.get("route", ""),
-        "marketing_status": product.get(
-            "marketing_status",
-            "",
-        ),
-        "submission_number": submission.get(
-            "submission_number",
-            "",
-        ),
-        "submission_type": submission.get(
-            "submission_type",
-            "",
-        ),
-        "action_type": submission.get(
-            "action_type",
-            "",
-        ),
-        "submission_status": submission.get(
-            "submission_status",
-            "",
-        ),
-        "submission_date": submission.get(
-            "submission_publication_date",
-            "",
-        ),
-        "what_happened": build_event_description(
-            record,
-            product,
-            submission,
-        ),
-        "oncology_relevance": True,
-        "oncology_matches": oncology_match[:10],
-        "source_url": (
-            "https://www.accessdata.fda.gov/"
-            "scripts/cder/daf/"
-        ),
-    }
+    return "", "", ""
+
+
+def infer_event_type(title, description):
+    text = f"{title} {description}".lower()
+
+    if "accelerated approval" in text:
+        return "Accelerated approval"
+
+    if "traditional approval" in text:
+        return "Traditional approval"
+
+    if "safety labeling update" in text:
+        return "Safety / labeling update"
+
+    if "expanded indication" in text:
+        return "Expanded indication"
+
+    if "approved" in text:
+        return "FDA approval"
+
+    return "FDA oncology update"
+
+
+def extract_records(html):
+    soup = BeautifulSoup(html, "html.parser")
+
+    records = []
+
+    # FDA page uses a table containing:
+    # Webpage | Description | Date
+    tables = soup.find_all("table")
+
+    for table in tables:
+
+        rows = table.find_all("tr")
+
+        for row in rows[1:]:
+            cells = row.find_all(["td", "th"])
+
+            if len(cells) < 3:
+                continue
+
+            title_cell = cells[0]
+            description_cell = cells[1]
+            date_cell = cells[2]
+
+            link = title_cell.find("a")
+
+            title = clean_text(
+                title_cell.get_text(" ", strip=True)
+            )
+
+            description = clean_text(
+                description_cell.get_text(
+                    " ",
+                    strip=True
+                )
+            )
+
+            date = clean_text(
+                date_cell.get_text(
+                    " ",
+                    strip=True
+                )
+            )
+
+            if not title:
+                continue
+
+            drug, brand, company = extract_drug_company(
+                description
+            )
+
+            event_type = infer_event_type(
+                title,
+                description
+            )
+
+            # Extract date from description if table date
+            # is empty.
+            if not date:
+                date = extract_date(description)
+
+            source_url = FDA_ONCOLOGY_URL
+
+            if link and link.get("href"):
+                href = link["href"]
+
+                if href.startswith("/"):
+                    source_url = (
+                        "https://www.fda.gov" + href
+                    )
+                elif href.startswith("http"):
+                    source_url = href
+
+            records.append(
+                {
+                    "source": "FDA",
+                    "source_type": "regulatory",
+
+                    "title": title,
+
+                    "drug": drug,
+                    "brand": brand,
+                    "company": company,
+
+                    "event_type": event_type,
+                    "approval_date": date,
+
+                    "indication": description,
+
+                    "what_happened": description,
+
+                    "source_url": source_url,
+
+                    "oncology_relevance": True,
+                }
+            )
+
+    return records
 
 
 def main():
-    print("Fetching FDA Drugs@FDA data...")
 
-    all_records = []
-    limit = 100
-    max_batches = 10
+    print("Fetching FDA oncology approval notifications...")
 
-    for skip in range(0, limit * max_batches, limit):
-        params = {
-            "limit": limit,
-            "skip": skip,
-        }
-
-        response = requests.get(
-            FDA_URL,
-            params=params,
-            timeout=60,
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 "
+            "(compatible; OncologyKnowledgeBuilder/1.0)"
         )
-        response.raise_for_status()
+    }
 
-        payload = response.json()
-        batch = payload.get("results", [])
+    response = requests.get(
+        FDA_ONCOLOGY_URL,
+        headers=headers,
+        timeout=60,
+    )
 
-        if not batch:
-            break
+    response.raise_for_status()
 
-        all_records.extend(batch)
+    records = extract_records(
+        response.text
+    )
 
-        print(
-            f"Retrieved {len(all_records)} FDA records..."
-        )
-
-        if len(batch) < limit:
-            break
-
-    processed = []
-
-    for record in all_records:
-        item = process_record(record)
-
-        if item:
-            processed.append(item)
-
-    # Remove duplicate application/asset combinations.
+    # Remove duplicates.
     unique = {}
-    for item in processed:
+
+    for record in records:
         key = (
-            item.get("application_number", ""),
-            item.get("submission_number", ""),
-            item.get("asset", ""),
+            record["title"],
+            record["approval_date"],
         )
 
         if key not in unique:
-            unique[key] = item
+            unique[key] = record
 
-    processed = list(unique.values())
+    records = list(unique.values())
 
-    # Most recent first.
-    processed.sort(
-        key=lambda x: (
-            x.get("submission_date", ""),
-            x.get("asset", ""),
+    # Newest first.
+    records.sort(
+        key=lambda x: x.get(
+            "approval_date",
+            ""
         ),
         reverse=True,
     )
 
-    # Keep the feed manageable.
-    processed = processed[:100]
+    # Keep a reasonable number for the dashboard.
+    records = records[:100]
 
     today = datetime.now(
         timezone.utc
     ).strftime("%Y-%m-%d")
 
     output_file = (
-        OUTPUT_DIR / f"{today}-fda.json"
+        OUTPUT_DIR /
+        f"{today}-fda.json"
     )
 
     output = {
-        "source": "FDA",
-        "source_url": FDA_URL,
-        "generated_at": datetime.now(
-            timezone.utc
-        ).isoformat(),
-        "records_retrieved": len(all_records),
-        "oncology_records": len(processed),
-        "records": processed,
+        "source": "FDA Oncology Approval Notifications",
+
+        "source_url": FDA_ONCOLOGY_URL,
+
+        "generated_at":
+            datetime.now(
+                timezone.utc
+            ).isoformat(),
+
+        "records_retrieved":
+            len(records),
+
+        "oncology_records":
+            len(records),
+
+        "records":
+            records,
     }
 
     with open(
         output_file,
         "w",
-        encoding="utf-8",
+        encoding="utf-8"
     ) as f:
+
         json.dump(
             output,
             f,
@@ -413,16 +297,29 @@ def main():
         )
 
     print()
-    print("FDA collection complete.")
     print(
-        f"Records retrieved: {len(all_records)}"
+        "FDA oncology collection complete."
     )
+
     print(
-        f"Oncology records: {len(processed)}"
+        f"Oncology records: {len(records)}"
     )
+
     print(
         f"Saved to: {output_file}"
     )
+
+    if records:
+
+        print()
+        print("Latest FDA records:")
+
+        for record in records[:5]:
+
+            print(
+                f"- {record['title']} "
+                f"({record['approval_date']})"
+            )
 
 
 if __name__ == "__main__":
