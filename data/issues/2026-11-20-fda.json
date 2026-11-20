@@ -1,0 +1,9 @@
+{
+  "source": "FDA",
+  "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications",
+  "collected_at": "2026-11-20T04:19:21.758296+00:00",
+  "status": 404,
+  "approval_count": 0,
+  "approvals": [],
+  "error": "FDA page could not be retrieved directly"
+}
