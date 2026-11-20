@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 permissions:
@@ -17,34 +16,33 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
- build:
-  runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Setup Pages
-      uses: actions/configure-pages@v5
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-    - name: Prepare website data
-      run: |
-        rm -rf website/data
-        mkdir -p website/data/issues website/data/digests
-        cp -R data/issues/. website/data/issues/
-        cp -R data/digests/. website/data/digests/
+      - name: Prepare website data
+        run: |
+          rm -rf website/data
+          mkdir -p website/data/issues website/data/digests
+          cp -R data/issues/. website/data/issues/
+          cp -R data/digests/. website/data/digests/
 
-    - name: Upload website
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: website
+      - name: Upload website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: website
+
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     runs-on: ubuntu-latest
-
     needs: build
 
     steps:
