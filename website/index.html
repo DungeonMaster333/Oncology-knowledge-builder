@@ -19,7 +19,6 @@
   --orange:#f4b86a;
   --red:#ff7d7d;
   --purple:#b995ff;
-  --shadow:0 18px 50px rgba(0,0,0,.25);
 }
 
 *{
@@ -32,9 +31,7 @@ html{
 
 body{
   margin:0;
-  background:
-    radial-gradient(circle at 75% 10%,rgba(70,110,180,.08),transparent 30%),
-    var(--bg);
+  background:var(--bg);
   color:var(--text);
   font-family:
     Inter,
@@ -54,28 +51,26 @@ a{
   text-decoration:none;
 }
 
-.container{
-  width:min(1450px,calc(100% - 80px));
-  margin:auto;
-}
-
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
 
 header{
   position:sticky;
   top:0;
   z-index:20;
-  height:88px;
-  border-bottom:1px solid var(--border);
-  background:rgba(8,11,16,.88);
-  backdrop-filter:blur(18px);
-}
 
-.header-inner{
-  height:100%;
   display:flex;
   align-items:center;
   justify-content:space-between;
+
+  padding:14px 4%;
+  min-height:88px;
+
+  background:rgba(8,11,16,.94);
+  border-bottom:1px solid var(--border);
+
+  backdrop-filter:blur(16px);
 }
 
 .brand{
@@ -87,27 +82,31 @@ header{
 .logo{
   width:52px;
   height:52px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid #344257;
   border-radius:15px;
-  border:1px solid #34445b;
-  background:linear-gradient(145deg,#162235,#0d1522);
-  display:grid;
-  place-items:center;
-  font-weight:800;
+
+  background:linear-gradient(145deg,#172337,#0d131d);
+
+  color:#9abaff;
   font-size:22px;
-  color:#9fc0ff;
-  box-shadow:0 8px 30px rgba(0,0,0,.2);
+  font-weight:800;
 }
 
-.brand-name{
-  font-size:21px;
+.brand-title{
+  font-size:22px;
   font-weight:750;
   letter-spacing:-.4px;
 }
 
-.brand-sub{
+.brand-subtitle{
+  margin-top:1px;
   color:var(--muted);
   font-size:15px;
-  margin-top:1px;
 }
 
 .nav{
@@ -115,104 +114,132 @@ header{
   gap:10px;
 }
 
-.nav-btn{
-  padding:13px 18px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  color:#b8c1ce;
-  background:#0e131b;
+.nav button{
+  border:1px solid #202a37;
+  background:#10151d;
+  color:#aeb8c6;
+
+  padding:11px 18px;
+  border-radius:10px;
+
   cursor:pointer;
+
+  transition:.2s;
 }
 
-.nav-btn.active{
-  color:var(--text);
-  border-color:#40516a;
-  background:#161d28;
+.nav button:hover,
+.nav button.active{
+  color:#fff;
+  border-color:#3a4a62;
+  background:#171e29;
 }
 
-/* HERO */
+/* =========================
+   LAYOUT
+========================= */
+
+main{
+  width:min(1500px,92%);
+  margin:0 auto;
+}
+
+section{
+  margin-bottom:92px;
+}
+
+/* =========================
+   HERO
+========================= */
 
 .hero{
-  padding:78px 0 80px;
+  padding-top:76px;
 }
 
-.eyebrow{
-  color:#76a9ff;
+.kicker{
+  color:#76a8ff;
   font-size:15px;
   font-weight:800;
   letter-spacing:2px;
-  margin-bottom:18px;
+  text-transform:uppercase;
 }
 
 .hero h1{
-  margin:0;
-  max-width:950px;
-  font-size:clamp(52px,7vw,88px);
-  line-height:.98;
+  max-width:900px;
+  margin:22px 0 20px;
+
+  font-size:76px;
+  line-height:1.02;
   letter-spacing:-4px;
   font-weight:800;
 }
 
-.hero p{
-  max-width:980px;
-  margin:28px 0 30px;
-  color:#9ba8b8;
-  font-size:20px;
-  line-height:1.6;
+.hero-description{
+  max-width:1050px;
+
+  color:#9eabbc;
+  font-size:21px;
+  line-height:1.55;
 }
 
-.pills{
+.status-row{
   display:flex;
   flex-wrap:wrap;
   gap:12px;
+  margin-top:28px;
 }
 
-.pill{
-  border:1px solid var(--border);
+.status{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  padding:8px 14px;
+
+  border:1px solid #273241;
   border-radius:999px;
-  padding:8px 15px;
+
   color:#aeb9c8;
-  background:#0e131a;
+  background:#0d1219;
+
   font-size:14px;
 }
 
-.pill.green{
-  color:var(--green);
-  border-color:#315742;
+.status.active{
+  color:#72dfa9;
+  border-color:#315442;
 }
 
-.dot{
-  display:inline-block;
-  width:8px;
-  height:8px;
+.status-dot{
+  width:10px;
+  height:10px;
   border-radius:50%;
-  background:var(--green);
-  margin-right:7px;
+  background:#71dfa8;
 }
 
-/* SECTIONS */
-
-section{
-  margin-bottom:76px;
-}
+/* =========================
+   SECTION HEADERS
+========================= */
 
 .section-head{
-  margin-bottom:24px;
+  margin-bottom:22px;
 }
 
 .section-title{
-  font-size:30px;
-  letter-spacing:-.8px;
   margin:0;
+  font-size:31px;
+  line-height:1.2;
+  letter-spacing:-1px;
 }
 
 .section-sub{
+  margin-top:7px;
   color:var(--muted);
-  font-size:16px;
-  margin-top:4px;
+  font-size:17px;
 }
 
-/* TOP CARDS */
+/* =========================
+   TOP 3
+========================= */
 
 .top-grid{
   display:grid;
@@ -220,433 +247,452 @@ section{
   gap:20px;
 }
 
-.intelligence-card{
-  min-height:390px;
+.card{
+  min-height:330px;
+
+  padding:28px;
+
   border:1px solid var(--border);
   border-radius:18px;
+
   background:
-    linear-gradient(180deg,rgba(18,24,33,.96),rgba(11,15,21,.96));
-  padding:27px;
-  box-shadow:var(--shadow);
-  transition:.2s ease;
+    linear-gradient(
+      180deg,
+      rgba(17,23,32,.98),
+      rgba(12,17,24,.98)
+    );
+
+  transition:
+    transform .2s,
+    border-color .2s;
 }
 
-.intelligence-card:hover{
+.card:hover{
   transform:translateY(-3px);
-  border-color:#3b4b61;
+  border-color:#3a4658;
 }
 
-.card-source{
-  display:inline-block;
-  font-size:12px;
-  font-weight:850;
-  letter-spacing:1.5px;
+.card-type{
   margin-bottom:16px;
-}
 
-.card-source.orange{
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1.5px;
+
   color:var(--orange);
 }
 
-.card-source.blue{
-  color:var(--blue);
+.card h3{
+  margin:0 0 20px;
+
+  font-size:25px;
+  line-height:1.2;
 }
 
-.card-source.purple{
-  color:var(--purple);
+.meta{
+  padding:14px 0;
+
+  border-top:1px solid #252e3a;
+  border-bottom:1px solid #252e3a;
 }
 
-.intelligence-card h3{
-  margin:0 0 7px;
-  font-size:22px;
-  line-height:1.25;
-}
-
-.card-date{
-  color:#657180;
-  font-size:12px;
-  margin-bottom:18px;
-}
-
-.card-meta{
+.meta-row{
   display:grid;
-  gap:7px;
-  padding:13px 0;
-  border-top:1px solid rgba(255,255,255,.06);
-  border-bottom:1px solid rgba(255,255,255,.06);
-  margin-bottom:18px;
+  grid-template-columns:70px 1fr;
+  gap:10px;
+
+  margin:8px 0;
 }
 
-.card-meta span{
-  color:#9da9b8;
-  font-size:13px;
+.meta-label{
+  color:#eef3f8;
+  font-weight:750;
 }
 
-.card-meta strong{
-  color:#dfe6ef;
-  margin-right:6px;
-}
-
-.card-section{
-  margin-top:16px;
-}
-
-.card-label{
-  color:#667487;
-  font-size:10px;
-  font-weight:850;
-  letter-spacing:1.5px;
-  margin-bottom:5px;
-}
-
-.card-section p{
-  margin:0;
+.meta-value{
   color:#aab5c3;
-  font-size:14px;
-  line-height:1.55;
+  overflow-wrap:anywhere;
 }
 
-.card-footer{
+.what{
   margin-top:20px;
-  color:#617084;
-  font-size:11px;
 }
 
-/* FILTERS */
+.what-label{
+  margin-bottom:7px;
+
+  color:#7285a2;
+
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+}
+
+.what-text{
+  color:#aeb9c8;
+  font-size:15px;
+}
+
+.empty{
+  grid-column:1/-1;
+
+  padding:35px;
+
+  border:1px dashed #2c3745;
+  border-radius:16px;
+
+  text-align:center;
+  color:#8f9caf;
+}
+
+/* =========================
+   BRIEFING
+========================= */
 
 .filters{
   display:flex;
-  flex-wrap:wrap;
   gap:10px;
-  margin-bottom:22px;
+  flex-wrap:wrap;
+
+  margin:20px 0;
 }
 
 .filter{
-  border:1px solid var(--border);
+  border:1px solid #273241;
   border-radius:999px;
-  padding:9px 18px;
-  color:#aeb9c8;
-  background:#0d131b;
+
+  padding:9px 17px;
+
+  background:#0d1219;
+  color:#9faaba;
+
   cursor:pointer;
 }
 
+.filter:hover,
 .filter.active{
-  color:#eef3f8;
-  border-color:#526985;
-  background:#172130;
+  color:#fff;
+  border-color:#50627e;
+  background:#18202c;
 }
-
-/* DAILY FEED */
 
 .feed{
   display:grid;
   gap:14px;
 }
 
-.feed-card{
+.feed-item{
+  padding:22px;
+
   border:1px solid var(--border);
   border-radius:15px;
-  background:var(--panel2);
-  padding:20px 23px;
+
+  background:var(--panel);
 }
 
 .feed-top{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  gap:20px;
-  align-items:flex-start;
+  gap:15px;
 }
 
-.feed-source{
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:1.2px;
-}
-
-.feed-source.orange{
-  color:var(--orange);
-}
-
-.feed-source.blue{
-  color:var(--blue);
-}
-
-.feed-source.purple{
-  color:var(--purple);
-}
-
-.feed-title{
-  margin:7px 0 5px;
-  font-size:18px;
-  font-weight:700;
-}
-
-.feed-summary{
-  color:#929eae;
-  font-size:14px;
+.feed-type{
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1.3px;
 }
 
 .feed-date{
-  color:#5f6b7b;
-  font-size:12px;
-  white-space:nowrap;
+  color:#687689;
+  font-size:13px;
 }
 
-.feed-details{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  margin-top:16px;
+.feed-title{
+  margin:10px 0 8px;
+
+  font-size:20px;
+  font-weight:750;
 }
 
-.detail{
-  background:#0a0f15;
-  border-radius:10px;
-  padding:10px 12px;
+.feed-summary{
+  color:#9eabbc;
 }
 
-.detail-label{
-  color:#586678;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:1px;
+.source-link{
+  display:inline-block;
+  margin-top:13px;
+
+  color:#75a7ff;
+  font-size:14px;
 }
 
-.detail-value{
-  color:#b9c3cf;
-  font-size:12px;
-  margin-top:2px;
-}
-
-/* LEARNING */
+/* =========================
+   LEARNING
+========================= */
 
 .learning-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:15px;
+  gap:14px;
 }
 
-.learn-card{
+.learning-item{
   border:1px solid var(--border);
   border-radius:15px;
-  background:var(--panel2);
+  background:var(--panel);
+
   overflow:hidden;
 }
 
-.learn-card summary{
-  list-style:none;
+.learning-button{
+  width:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:22px;
+
+  border:0;
+  background:transparent;
+
+  color:var(--text);
+
   cursor:pointer;
-  padding:20px 22px;
-  font-weight:700;
-  font-size:16px;
+  text-align:left;
 }
 
-.learn-card summary::-webkit-details-marker{
-  display:none;
+.learning-title{
+  font-size:18px;
+  font-weight:750;
 }
 
-.learn-card summary::after{
-  content:"+";
-  float:right;
-  color:#657487;
-}
-
-.learn-card[open] summary::after{
-  content:"−";
-}
-
-.learn-content{
-  padding:0 22px 22px;
-  color:#929eae;
+.learning-desc{
+  margin-top:4px;
+  color:var(--muted);
   font-size:14px;
 }
 
-.learn-content strong{
-  color:#e5ebf2;
+.learning-content{
+  display:none;
+  padding:0 22px 22px;
+
+  color:#9eabbc;
 }
 
-/* MAP */
+.learning-item.open .learning-content{
+  display:block;
+}
+
+.learning-arrow{
+  color:#738095;
+  transition:.2s;
+}
+
+.learning-item.open .learning-arrow{
+  transform:rotate(180deg);
+}
+
+/* =========================
+   MAP
+========================= */
 
 .map{
   display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:10px;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
 }
 
-.map-item{
+.map-node{
+  min-height:120px;
+
+  padding:18px;
+
   border:1px solid var(--border);
-  border-radius:13px;
-  background:#0e141c;
-  padding:18px 15px;
+  border-radius:14px;
+
+  background:var(--panel);
 }
 
-.map-item .num{
-  color:#6f9ff0;
-  font-size:12px;
+.map-node-title{
+  font-weight:750;
 }
 
-.map-item h4{
-  margin:5px 0 3px;
-  font-size:14px;
+.map-node-sub{
+  margin-top:5px;
+
+  color:var(--muted);
+  font-size:13px;
 }
 
-.map-item p{
-  margin:0;
-  color:#778495;
-  font-size:11px;
+.progress{
+  height:6px;
+
+  margin-top:16px;
+
+  background:#202a35;
+  border-radius:10px;
+  overflow:hidden;
 }
 
-/* ANALYST */
+.progress-fill{
+  height:100%;
+  width:0;
 
-.analyst{
+  background:var(--blue);
+}
+
+/* =========================
+   ANALYST LENS
+========================= */
+
+.lens{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.lens-card{
+  padding:24px;
+
   border:1px solid var(--border);
-  border-radius:18px;
-  background:
-    linear-gradient(135deg,#111923,#0c1118);
+  border-radius:16px;
+
+  background:var(--panel);
+}
+
+.lens-card h3{
+  margin-top:0;
+  font-size:18px;
+}
+
+.lens-card p{
+  color:#9da9b8;
+  font-size:15px;
+}
+
+/* =========================
+   TUTOR
+========================= */
+
+.tutor{
   padding:30px;
+
+  border:1px solid #263342;
+  border-radius:18px;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(88,125,190,.12),
+      transparent 40%
+    ),
+    var(--panel);
 }
 
-.analyst h3{
+.tutor h2{
   margin-top:0;
 }
 
-.analyst p{
-  color:#9ca8b7;
-  max-width:900px;
+.tutor p{
+  color:#9eabbc;
 }
 
-.analyst ul{
-  color:#9ca8b7;
-  line-height:1.9;
-}
+.tutor-prompt{
+  padding:17px;
 
-/* TUTOR */
-
-.tutor{
-  border:1px solid #304359;
-  border-radius:18px;
-  padding:28px;
-  background:linear-gradient(135deg,#111b28,#0d131c);
-}
-
-.tutor textarea{
-  width:100%;
-  min-height:110px;
-  resize:vertical;
-  background:#080d13;
-  color:#dfe6ef;
-  border:1px solid #29394d;
+  border:1px solid #263342;
   border-radius:12px;
-  padding:14px;
-  outline:none;
+
+  background:#0a0f15;
+
+  color:#b9c3d0;
+
+  font-family:monospace;
+  font-size:14px;
 }
 
-.tutor-actions{
-  margin-top:12px;
-  display:flex;
-  gap:10px;
-}
+.copy-btn{
+  margin-top:14px;
 
-.btn{
-  border:1px solid #3c5068;
-  background:#172333;
-  color:#e4ebf4;
-  border-radius:10px;
-  padding:10px 16px;
+  padding:9px 15px;
+
+  border:1px solid #34445b;
+  border-radius:9px;
+
+  background:#172131;
+  color:#d9e2ee;
+
   cursor:pointer;
 }
 
-.btn:hover{
-  background:#1c2b3e;
-}
-
-/* EMPTY / LOADING */
-
-.empty{
-  border:1px dashed #293443;
-  border-radius:16px;
-  padding:38px;
-  text-align:center;
-  color:#7e8b9c;
-}
-
-.loading{
-  color:#718095;
-  padding:35px;
-  text-align:center;
-}
-
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
+  padding:45px 0 60px;
+
   border-top:1px solid var(--border);
-  padding:30px 0 50px;
-  color:#586575;
-  font-size:12px;
+
+  color:#657286;
+  font-size:13px;
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media(max-width:1000px){
-  .top-grid{
+  .hero h1{
+    font-size:58px;
+  }
+
+  .top-grid,
+  .lens{
     grid-template-columns:1fr;
   }
 
   .map{
-    grid-template-columns:repeat(3,1fr);
-  }
-
-  .feed-details{
     grid-template-columns:repeat(2,1fr);
   }
 }
 
 @media(max-width:700px){
-  .container{
-    width:min(100% - 32px,1450px);
-  }
-
   header{
-    height:auto;
-    padding:13px 0;
-  }
-
-  .header-inner{
     align-items:flex-start;
-    gap:12px;
+    gap:15px;
   }
 
   .nav{
     display:none;
   }
 
+  main{
+    width:92%;
+  }
+
   .hero{
-    padding:55px 0 55px;
+    padding-top:50px;
   }
 
   .hero h1{
-    font-size:50px;
-    letter-spacing:-2.5px;
+    font-size:45px;
+    letter-spacing:-2px;
   }
 
-  .hero p{
+  .hero-description{
     font-size:17px;
   }
 
-  .learning-grid{
+  .learning-grid,
+  .map{
     grid-template-columns:1fr;
   }
 
-  .map{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .feed-top{
-    flex-direction:column;
-    gap:5px;
-  }
-
-  .feed-details{
+  .top-grid{
     grid-template-columns:1fr;
   }
 }
@@ -656,172 +702,178 @@ footer{
 <body>
 
 <header>
-  <div class="container header-inner">
 
-    <a class="brand" href="#briefing">
-      <div class="logo">ON</div>
+  <div class="brand">
 
-      <div>
-        <div class="brand-name">
-          Oncology Knowledge Builder
-        </div>
+    <div class="logo">ON</div>
 
-        <div class="brand-sub">
-          Personal oncology intelligence & learning desk
-        </div>
+    <div>
+      <div class="brand-title">
+        Oncology Knowledge Builder
       </div>
-    </a>
 
-    <nav class="nav">
-      <a class="nav-btn active" href="#briefing">
-        Briefing
-      </a>
-
-      <a class="nav-btn" href="#learn">
-        Learn
-      </a>
-
-      <a class="nav-btn" href="#map">
-        My Oncology Map
-      </a>
-    </nav>
+      <div class="brand-subtitle">
+        Personal oncology intelligence & learning desk
+      </div>
+    </div>
 
   </div>
+
+  <nav class="nav">
+    <button class="active" onclick="scrollToSection('briefing')">
+      Briefing
+    </button>
+
+    <button onclick="scrollToSection('learn')">
+      Learn
+    </button>
+
+    <button onclick="scrollToSection('map')">
+      My Oncology Map
+    </button>
+  </nav>
+
 </header>
 
 
 <main>
 
-<!-- HERO -->
+<!-- =========================
+     HERO
+========================= -->
 
-<section id="briefing">
-<div class="container">
+<section class="hero">
 
-  <div class="hero">
+  <div class="kicker">
+    DAILY ONCOLOGY INTELLIGENCE
+  </div>
 
-    <div class="eyebrow">
-      DAILY ONCOLOGY INTELLIGENCE
+  <h1>
+    Understand oncology.<br>
+    One day at a time.
+  </h1>
+
+  <div class="hero-description">
+    A personal learning and intelligence workspace combining
+    regulatory developments, clinical trials, scientific research
+    and structured oncology learning.
+  </div>
+
+  <div class="status-row">
+
+    <div class="status active">
+      <span class="status-dot"></span>
+      <span id="pipelineStatus">
+        Data pipeline active
+      </span>
     </div>
 
-    <h1>
-      Understand oncology.<br>
-      One day at a time.
-    </h1>
+    <div class="status" id="digestStatus">
+      Loading latest update...
+    </div>
 
-    <p id="heroDescription">
-      A personal learning and intelligence workspace combining
-      regulatory developments, clinical trials, scientific research
-      and structured oncology learning.
-    </p>
+    <div class="status">
+      FDA · ClinicalTrials.gov · PubMed · Gemini
+    </div>
 
-    <div class="pills">
+  </div>
 
-      <div class="pill green">
-        <span class="dot"></span>
-        <span id="pipelineStatus">
-          Data pipeline active
-        </span>
-      </div>
+</section>
 
-      <div class="pill" id="digestStatus">
-        Loading latest update...
-      </div>
 
-      <div class="pill">
-        FDA · ClinicalTrials.gov · PubMed · Gemini
-      </div>
+<!-- =========================
+     TOP 3
+========================= -->
 
+<section id="top3">
+
+  <div class="section-head">
+
+    <h2 class="section-title">
+      Today's Top 3
+    </h2>
+
+    <div class="section-sub">
+      Highest-value developments from the latest intelligence feed
+    </div>
+
+  </div>
+
+  <div id="topCards" class="top-grid">
+
+    <div class="empty">
+      Loading today's intelligence...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     BRIEFING
+========================= -->
+
+<section id="briefing">
+
+  <div class="section-head">
+
+    <h2 class="section-title">
+      Daily Briefing
+    </h2>
+
+    <div class="section-sub">
+      Regulatory · Clinical · Scientific intelligence
     </div>
 
   </div>
 
 
-  <!-- TOP 3 -->
+  <div class="filters">
 
-  <section>
+    <button
+      class="filter active"
+      data-filter="all">
+      All
+    </button>
 
-    <div class="section-head">
-      <h2 class="section-title">
-        Today's Top 3
-      </h2>
+    <button
+      class="filter"
+      data-filter="regulatory">
+      Regulatory
+    </button>
 
-      <div class="section-sub">
-        Highest-value developments from the latest intelligence feed
-      </div>
+    <button
+      class="filter"
+      data-filter="clinical">
+      Clinical Trials
+    </button>
+
+    <button
+      class="filter"
+      data-filter="scientific">
+      Scientific
+    </button>
+
+  </div>
+
+
+  <div id="feed" class="feed">
+
+    <div class="empty">
+      Loading intelligence feed...
     </div>
 
-    <div id="topCards" class="top-grid">
+  </div>
 
-      <div class="empty">
-        Loading today's intelligence...
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- DAILY FEED -->
-
-  <section>
-
-    <div class="section-head">
-      <h2 class="section-title">
-        Daily Briefing
-      </h2>
-
-      <div class="section-sub">
-        Regulatory · Clinical · Scientific intelligence
-      </div>
-    </div>
-
-    <div class="filters">
-
-      <button
-        class="filter active"
-        data-filter="all">
-        All
-      </button>
-
-      <button
-        class="filter"
-        data-filter="fda">
-        Regulatory
-      </button>
-
-      <button
-        class="filter"
-        data-filter="clinicaltrials">
-        Clinical Trials
-      </button>
-
-      <button
-        class="filter"
-        data-filter="pubmed">
-        Scientific
-      </button>
-
-    </div>
-
-    <div id="feed" class="feed">
-
-      <div class="empty">
-        Loading intelligence feed...
-      </div>
-
-    </div>
-
-  </section>
-
-</div>
 </section>
 
 
-<!-- LEARNING -->
+<!-- =========================
+     LEARNING
+========================= -->
 
 <section id="learn">
-
-<div class="container">
 
   <div class="section-head">
 
@@ -830,7 +882,7 @@ footer{
     </h2>
 
     <div class="section-sub">
-      Build the fundamentals before going deeper into individual diseases.
+      Build the fundamentals before going deeper into individual indications.
     </div>
 
   </div>
@@ -838,161 +890,173 @@ footer{
 
   <div class="learning-grid">
 
-    <details class="learn-card">
-      <summary>
-        Oncology Foundations
-      </summary>
+    <div class="learning-item">
 
-      <div class="learn-content">
+      <button class="learning-button">
+        <div>
+          <div class="learning-title">
+            Oncology Foundations
+          </div>
 
-        <strong>Start here.</strong>
+          <div class="learning-desc">
+            Understand what cancer is and how it develops.
+          </div>
+        </div>
 
-        <p>
-          Learn what cancer is, how normal cells become malignant,
-          how tumors grow and spread, and why oncology is different
-          from many other therapeutic areas.
-        </p>
+        <div class="learning-arrow">
+          ▼
+        </div>
+      </button>
 
-        <p>
-          Core concepts: carcinogenesis, mutations, tumor biology,
-          metastasis, tumor heterogeneity and the tumor microenvironment.
-        </p>
-
+      <div class="learning-content">
+        Learn about cancer biology, mutations, hallmarks of cancer,
+        carcinogenesis, tumor growth and metastasis.
       </div>
-    </details>
+
+    </div>
 
 
-    <details class="learn-card">
-      <summary>
-        Treatment Modalities
-      </summary>
+    <div class="learning-item">
 
-      <div class="learn-content">
+      <button class="learning-button">
+        <div>
+          <div class="learning-title">
+            Treatment Modalities
+          </div>
 
-        <p>
-          Understand the major treatment classes:
-        </p>
+          <div class="learning-desc">
+            Understand how oncology treatments work.
+          </div>
+        </div>
 
-        <p>
-          <strong>Surgery</strong> ·
-          <strong>Radiotherapy</strong> ·
-          <strong>Chemotherapy</strong> ·
-          <strong>Targeted therapy</strong> ·
-          <strong>Immunotherapy</strong> ·
-          <strong>Hormonal therapy</strong> ·
-          <strong>Cell & gene therapy</strong>
-        </p>
+        <div class="learning-arrow">
+          ▼
+        </div>
+      </button>
 
-        <p>
-          The goal is to understand not only what each modality does,
-          but where it fits in the patient treatment pathway.
-        </p>
-
+      <div class="learning-content">
+        Surgery, chemotherapy, radiotherapy, targeted therapy,
+        immunotherapy, hormonal therapy, ADCs and cellular therapies.
       </div>
-    </details>
+
+    </div>
 
 
-    <details class="learn-card">
-      <summary>
-        Biomarkers & Diagnostics
-      </summary>
+    <div class="learning-item">
 
-      <div class="learn-content">
+      <button class="learning-button">
+        <div>
+          <div class="learning-title">
+            Biomarkers & Diagnostics
+          </div>
 
-        <p>
-          Learn how biomarkers influence diagnosis, prognosis,
-          treatment selection and clinical-trial eligibility.
-        </p>
+          <div class="learning-desc">
+            Connect biomarkers to treatment decisions.
+          </div>
+        </div>
 
-        <p>
-          Key concepts include molecular testing,
-          companion diagnostics, genomic alterations,
-          PD-L1, HER2, EGFR, ALK, KRAS, BRAF and MSI/MMR.
-        </p>
+        <div class="learning-arrow">
+          ▼
+        </div>
+      </button>
 
+      <div class="learning-content">
+        Understand predictive biomarkers, prognostic biomarkers,
+        companion diagnostics, molecular testing and precision oncology.
       </div>
-    </details>
+
+    </div>
 
 
-    <details class="learn-card">
-      <summary>
-        Clinical Trials
-      </summary>
+    <div class="learning-item">
 
-      <div class="learn-content">
+      <button class="learning-button">
+        <div>
+          <div class="learning-title">
+            Clinical Trials
+          </div>
 
-        <p>
-          Understand Phase I–III development, endpoints,
-          inclusion/exclusion criteria, randomization,
-          comparator arms and regulatory evidence generation.
-        </p>
+          <div class="learning-desc">
+            Learn how oncology trials progress from Phase I to approval.
+          </div>
+        </div>
 
-        <p>
-          Commercial lens:
-          trial differentiation, standard-of-care comparator,
-          line of therapy, biomarker population and probability of success.
-        </p>
+        <div class="learning-arrow">
+          ▼
+        </div>
+      </button>
 
+      <div class="learning-content">
+        Learn trial phases, endpoints, inclusion criteria,
+        response measures, progression-free survival,
+        overall survival and regulatory evidence.
       </div>
-    </details>
+
+    </div>
 
 
-    <details class="learn-card">
-      <summary>
-        Patient Journey
-      </summary>
+    <div class="learning-item">
 
-      <div class="learn-content">
+      <button class="learning-button">
+        <div>
+          <div class="learning-title">
+            Patient Journey
+          </div>
 
-        <p>
-          Map the patient from symptoms and diagnosis through
-          staging, treatment selection, therapy, monitoring,
-          progression and subsequent lines of therapy.
-        </p>
+          <div class="learning-desc">
+            Follow patients from symptoms through treatment.
+          </div>
+        </div>
 
-        <p>
-          This is the foundation for understanding patient flow,
-          treatment sequencing, unmet needs and market opportunity.
-        </p>
+        <div class="learning-arrow">
+          ▼
+        </div>
+      </button>
 
+      <div class="learning-content">
+        Symptoms → diagnosis → staging → treatment selection →
+        treatment → progression → subsequent lines → supportive care.
       </div>
-    </details>
+
+    </div>
 
 
-    <details class="learn-card">
-      <summary>
-        Pharma Commercial Lens
-      </summary>
+    <div class="learning-item">
 
-      <div class="learn-content">
+      <button class="learning-button">
+        <div>
+          <div class="learning-title">
+            Pharma Commercial Lens
+          </div>
 
-        <p>
-          Translate clinical science into commercial intelligence.
-        </p>
+          <div class="learning-desc">
+            Translate clinical knowledge into commercial intelligence.
+          </div>
+        </div>
 
-        <p>
-          Focus areas:
-          patient population, epidemiology, diagnosis rate,
-          biomarker testing, treatment rate, line of therapy,
-          market share, treatment duration, persistence,
-          switching, pricing, access, competition and pipeline.
-        </p>
+        <div class="learning-arrow">
+          ▼
+        </div>
+      </button>
 
+      <div class="learning-content">
+        Market size, epidemiology, patient funnel, treatment share,
+        competition, unmet need, pricing, access, launch dynamics,
+        pipeline risk and forecast implications.
       </div>
-    </details>
+
+    </div>
 
   </div>
-
-</div>
 
 </section>
 
 
-<!-- MAP -->
+<!-- =========================
+     ONCOLOGY MAP
+========================= -->
 
 <section id="map">
-
-<div class="container">
 
   <div class="section-head">
 
@@ -1001,7 +1065,7 @@ footer{
     </h2>
 
     <div class="section-sub">
-      A structured path from oncology fundamentals to commercial insight.
+      Your structured path from fundamentals to commercial oncology expertise.
     </div>
 
   </div>
@@ -1009,54 +1073,83 @@ footer{
 
   <div class="map">
 
-    <div class="map-item">
-      <div class="num">01</div>
-      <h4>Foundations</h4>
-      <p>What is cancer?</p>
+    <div class="map-node">
+
+      <div class="map-node-title">
+        Foundations
+      </div>
+
+      <div class="map-node-sub">
+        Cancer biology & terminology
+      </div>
+
+      <div class="progress">
+        <div class="progress-fill" style="width:25%"></div>
+      </div>
+
     </div>
 
-    <div class="map-item">
-      <div class="num">02</div>
-      <h4>Biology</h4>
-      <p>Tumor biology & genetics</p>
+
+    <div class="map-node">
+
+      <div class="map-node-title">
+        Disease Areas
+      </div>
+
+      <div class="map-node-sub">
+        Tumor types & indications
+      </div>
+
+      <div class="progress">
+        <div class="progress-fill" style="width:10%"></div>
+      </div>
+
     </div>
 
-    <div class="map-item">
-      <div class="num">03</div>
-      <h4>Diagnosis</h4>
-      <p>Testing & biomarkers</p>
+
+    <div class="map-node">
+
+      <div class="map-node-title">
+        Treatment Landscape
+      </div>
+
+      <div class="map-node-sub">
+        SoC, targeted therapy & immunotherapy
+      </div>
+
+      <div class="progress">
+        <div class="progress-fill" style="width:5%"></div>
+      </div>
+
     </div>
 
-    <div class="map-item">
-      <div class="num">04</div>
-      <h4>Staging</h4>
-      <p>TNM & disease severity</p>
-    </div>
 
-    <div class="map-item">
-      <div class="num">05</div>
-      <h4>Treatment</h4>
-      <p>Modalities & sequencing</p>
-    </div>
+    <div class="map-node">
 
-    <div class="map-item">
-      <div class="num">06</div>
-      <h4>Commercial</h4>
-      <p>Market & competition</p>
+      <div class="map-node-title">
+        Commercial Lens
+      </div>
+
+      <div class="map-node-sub">
+        Market, competition & forecasting
+      </div>
+
+      <div class="progress">
+        <div class="progress-fill" style="width:0%"></div>
+      </div>
+
     </div>
 
   </div>
 
-</div>
-
 </section>
 
 
-<!-- ANALYST LENS -->
+<!-- =========================
+     ANALYST LENS
+========================= -->
 
 <section>
-
-<div class="container">
 
   <div class="section-head">
 
@@ -1065,226 +1158,523 @@ footer{
     </h2>
 
     <div class="section-sub">
-      Questions to ask whenever you read an oncology development.
+      The questions to ask when reading oncology intelligence.
     </div>
 
   </div>
 
 
-  <div class="analyst">
+  <div class="lens">
 
-    <h3>
-      Don't just ask “what happened?”
-    </h3>
+    <div class="lens-card">
 
-    <p>
-      Train yourself to translate every oncology event into
-      clinical, competitive and commercial implications.
-    </p>
+      <h3>
+        Clinical significance
+      </h3>
 
-    <ul>
+      <p>
+        Does the development meaningfully change the treatment
+        pathway, efficacy, safety or patient population?
+      </p>
 
-      <li>
-        Does this change the standard of care?
-      </li>
+    </div>
 
-      <li>
-        Which patient population is affected?
-      </li>
 
-      <li>
-        Which line of therapy is involved?
-      </li>
+    <div class="lens-card">
 
-      <li>
-        Does it expand or shrink the addressable market?
-      </li>
+      <h3>
+        Competitive significance
+      </h3>
 
-      <li>
-        Does it create differentiation versus competitors?
-      </li>
+      <p>
+        Which existing or pipeline therapies could gain or lose
+        share because of this development?
+      </p>
 
-      <li>
-        What does it mean for the pipeline and future market structure?
-      </li>
+    </div>
 
-    </ul>
+
+    <div class="lens-card">
+
+      <h3>
+        Commercial significance
+      </h3>
+
+      <p>
+        What could this mean for patient flow, market size,
+        treatment share, pricing, access or forecasting?
+      </p>
+
+    </div>
 
   </div>
-
-</div>
 
 </section>
 
 
-<!-- TUTOR -->
+<!-- =========================
+     TUTOR
+========================= -->
 
 <section>
 
-<div class="container">
+  <div class="tutor">
 
-  <div class="section-head">
-
-    <h2 class="section-title">
+    <h2>
       Oncology Tutor
     </h2>
 
-    <div class="section-sub">
-      Use this space to turn today's intelligence into active learning.
-    </div>
-
-  </div>
-
-
-  <div class="tutor">
-
-    <h3>
-      Ask yourself a question
-    </h3>
-
     <p>
-      Example: “Why would a biomarker-positive patient population
-      matter commercially?”
+      Use Gemini or ChatGPT as your personal oncology tutor.
+      Ask it to teach concepts using simple explanations,
+      analogies, quizzes and commercial examples.
     </p>
 
-    <textarea
-      id="tutorQuestion"
-      placeholder="Write your oncology question here...">
-    </textarea>
 
-    <div class="tutor-actions">
-
-      <button
-        class="btn"
-        onclick="copyTutorPrompt()">
-        Copy tutor prompt
-      </button>
-
+    <div class="tutor-prompt">
+Teach me oncology from zero. Explain today's oncology development
+in simple language, then connect it to disease biology, treatment,
+patient journey, competition and pharma commercial implications.
+End with 5 quiz questions.
     </div>
+
+
+    <button
+      class="copy-btn"
+      onclick="copyTutorPrompt()">
+      Copy tutor prompt
+    </button>
 
   </div>
 
-</div>
-
 </section>
-
-</main>
 
 
 <footer>
 
-<div class="container">
-
-  Oncology Knowledge Builder · Personal learning & intelligence workspace
-
-</div>
+  Oncology Knowledge Builder · Personal learning & intelligence desk
 
 </footer>
 
+</main>
+
 
 <script>
-
-/* =========================================================
-   CONFIGURATION
-========================================================= */
+/* ==========================================================
+   ONCOLOGY KNOWLEDGE BUILDER
+   SINGLE CLEAN JAVASCRIPT BLOCK
+========================================================== */
 
 const DATA_PATH = "data/issues/";
 const DIGEST_PATH = "data/digests/";
 
-let allItems = [];
-let currentFilter = "all";
+const SOURCES = {
+
+  fda: {
+    label: "REGULATORY",
+    title: "FDA / Regulatory",
+    type: "regulatory"
+  },
+
+  clinicaltrials: {
+    label: "CLINICAL TRIAL",
+    title: "Clinical Trials",
+    type: "clinical"
+  },
+
+  pubmed: {
+    label: "SCIENTIFIC",
+    title: "PubMed / Scientific",
+    type: "scientific"
+  }
+
+};
 
 
-/* =========================================================
+/* ==========================================================
    HELPERS
-========================================================= */
+========================================================== */
 
-function cleanText(value){
+function safeText(value){
 
   if(value === null || value === undefined){
     return "";
   }
 
-  return String(value)
-    .replace(/\s+/g," ")
-    .trim();
-}
-
-
-function escapeHTML(value){
-
-  return cleanText(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
-
-
-function truncate(value,max=220){
-
-  const text = cleanText(value);
-
-  if(text.length <= max){
-    return text;
+  if(typeof value === "string"){
+    return value;
   }
 
-  return text.substring(0,max).trim() + "…";
-}
-
-
-function formatDate(value){
-
-  if(!value){
-    return "";
+  if(typeof value === "number" || typeof value === "boolean"){
+    return String(value);
   }
 
-  const d = new Date(value);
-
-  if(Number.isNaN(d.getTime())){
-    return cleanText(value);
+  if(Array.isArray(value)){
+    return value
+      .map(item => safeText(item))
+      .filter(Boolean)
+      .join(", ");
   }
 
-  return d.toLocaleDateString("en-IN",{
-    day:"numeric",
-    month:"short",
-    year:"numeric"
-  });
-}
+  if(typeof value === "object"){
 
-
-function findField(obj,fields){
-
-  for(const field of fields){
-
-    if(
-      obj &&
-      obj[field] !== undefined &&
-      obj[field] !== null &&
-      cleanText(obj[field]) !== ""
-    ){
-      return obj[field];
+    if(value.name){
+      return safeText(value.name);
     }
 
+    if(value.title){
+      return safeText(value.title);
+    }
+
+    if(value.text){
+      return safeText(value.text);
+    }
+
+    if(value.value){
+      return safeText(value.value);
+    }
+
+    return Object.values(value)
+      .map(item => safeText(item))
+      .filter(Boolean)
+      .join(", ");
   }
 
   return "";
 }
 
 
-/* =========================================================
-   JSON LOADING
-========================================================= */
+function truncate(text, max=260){
 
-async function fetchJSON(url){
+  text = safeText(text);
+
+  if(text.length <= max){
+    return text;
+  }
+
+  return text.slice(0,max).trim() + "...";
+}
+
+
+function escapeHTML(value){
+
+  return safeText(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+function getToday(){
+
+  return new Date().toISOString().slice(0,10);
+
+}
+
+
+function formatDate(dateString){
+
+  if(!dateString){
+    return "";
+  }
 
   try{
 
-    const response =
-      await fetch(url,{
+    const d = new Date(dateString);
+
+    if(Number.isNaN(d.getTime())){
+      return safeText(dateString);
+    }
+
+    return d.toLocaleDateString("en-US",{
+      day:"2-digit",
+      month:"short",
+      year:"numeric"
+    });
+
+  }catch(e){
+
+    return safeText(dateString);
+
+  }
+
+}
+
+
+/* ==========================================================
+   EXTRACT RECORDS
+========================================================== */
+
+function extractRecords(json){
+
+  if(!json){
+    return [];
+  }
+
+  if(Array.isArray(json)){
+    return json;
+  }
+
+  if(Array.isArray(json.records)){
+    return json.records;
+  }
+
+  if(Array.isArray(json.studies)){
+    return json.studies;
+  }
+
+  if(Array.isArray(json.results)){
+    return json.results;
+  }
+
+  if(Array.isArray(json.data)){
+    return json.data;
+  }
+
+  return [json];
+
+}
+
+
+/* ==========================================================
+   NORMALIZE FDA
+========================================================== */
+
+function normalizeFDA(record){
+
+  const openfda = record.openfda || {};
+
+  const brand =
+    safeText(openfda.brand_name) ||
+    safeText(record.brand_name) ||
+    safeText(record.drug_name) ||
+    safeText(record.products) ||
+    "FDA oncology update";
+
+
+  const company =
+    safeText(openfda.manufacturer_name) ||
+    safeText(record.sponsor_name) ||
+    safeText(record.applicant) ||
+    safeText(record.sponsor) ||
+    "Company not specified";
+
+
+  const application =
+    safeText(record.application_number) ||
+    safeText(record.application_number_display) ||
+    safeText(record.application_number_short);
+
+
+  const action =
+    safeText(record.action_type) ||
+    safeText(record.action) ||
+    safeText(record.approval_type) ||
+    "FDA regulatory development";
+
+
+  const indication =
+    safeText(record.indication) ||
+    safeText(record.indications) ||
+    safeText(record.description) ||
+    "";
+
+
+  return {
+
+    source:"fda",
+
+    type:"regulatory",
+
+    label:"REGULATORY",
+
+    title:
+      brand +
+      " — FDA regulatory update",
+
+    asset:brand,
+
+    company:company,
+
+    what:
+      action +
+      (indication ? ". " + truncate(indication,220) : ""),
+
+    date:
+      safeText(record.submission_status_date) ||
+      safeText(record.action_date) ||
+      safeText(record.approval_date) ||
+      safeText(record.date),
+
+    application:application,
+
+    url:
+      safeText(record.url) ||
+      safeText(record.link) ||
+      ""
+
+  };
+
+}
+
+
+/* ==========================================================
+   NORMALIZE CLINICALTRIALS
+========================================================== */
+
+function normalizeClinicalTrial(record){
+
+  const protocol = record.protocolSection || record;
+
+  const identification =
+    protocol.identificationModule ||
+    {};
+
+  const status =
+    protocol.statusModule ||
+    {};
+
+  const design =
+    protocol.designModule ||
+    {};
+
+  const sponsor =
+    protocol.sponsorCollaboratorsModule ||
+    {};
+
+  const intervention =
+    protocol.armsInterventionsModule ||
+    {};
+
+  const nct =
+    safeText(identification.nctId) ||
+    safeText(record.nctId) ||
+    safeText(record.id);
+
+
+  const title =
+    safeText(identification.briefTitle) ||
+    safeText(identification.officialTitle) ||
+    safeText(record.title) ||
+    "Clinical trial";
+
+
+  const studyStatus =
+    safeText(status.overallStatus) ||
+    safeText(record.status);
+
+
+  const phases =
+    safeText(design.phases) ||
+    safeText(record.phase);
+
+
+  const sponsorName =
+    safeText(sponsor.leadSponsor) ||
+    safeText(record.sponsor);
+
+
+  return {
+
+    source:"clinicaltrials",
+
+    type:"clinical",
+
+    label:"CLINICAL TRIAL",
+
+    title:title,
+
+    asset:nct,
+
+    company:sponsorName || "Sponsor not specified",
+
+    what:
+      studyStatus +
+      (phases ? " · " + phases : ""),
+
+    date:
+      safeText(status.lastUpdatePostDateStruct?.date) ||
+      safeText(status.studyFirstPostDateStruct?.date),
+
+    url:
+      nct
+      ? "https://clinicaltrials.gov/study/" + encodeURIComponent(nct)
+      : ""
+
+  };
+
+}
+
+
+/* ==========================================================
+   NORMALIZE PUBMED
+========================================================== */
+
+function normalizePubMed(record){
+
+  return {
+
+    source:"pubmed",
+
+    type:"scientific",
+
+    label:"SCIENTIFIC",
+
+    title:
+      safeText(record.title) ||
+      safeText(record.article_title) ||
+      "Scientific oncology publication",
+
+    asset:
+      safeText(record.pmid) ||
+      safeText(record.PMID) ||
+      "",
+
+    company:
+      safeText(record.journal) ||
+      "PubMed",
+
+    what:
+      truncate(
+        safeText(record.abstract) ||
+        safeText(record.summary) ||
+        "New oncology scientific publication.",
+        280
+      ),
+
+    date:
+      safeText(record.pub_date) ||
+      safeText(record.publication_date) ||
+      safeText(record.date),
+
+    url:
+      record.pmid
+      ? "https://pubmed.ncbi.nlm.nih.gov/" +
+        encodeURIComponent(record.pmid) +
+        "/"
+      : ""
+
+  };
+
+}
+
+
+/* ==========================================================
+   LOAD JSON
+========================================================== */
+
+async function loadJSON(url){
+
+  try{
+
+    const response = await fetch(
+      url + "?v=" + Date.now(),
+      {
         cache:"no-store"
-      });
+      }
+    );
 
     if(!response.ok){
       return null;
@@ -1294,1132 +1684,490 @@ async function fetchJSON(url){
 
   }catch(error){
 
-    console.warn(
-      "Could not load:",
-      url,
-      error
-    );
+    console.warn("Could not load:",url,error);
 
     return null;
+
   }
+
 }
 
 
-function extractRecords(data){
+/* ==========================================================
+   FIND LATEST DATA FILE
+========================================================== */
 
-  if(Array.isArray(data)){
-    return data;
-  }
-
-  if(
-    data &&
-    Array.isArray(data.records)
-  ){
-    return data.records;
-  }
-
-  if(
-    data &&
-    Array.isArray(data.results)
-  ){
-    return data.results;
-  }
-
-  if(
-    data &&
-    Array.isArray(data.studies)
-  ){
-    return data.studies;
-  }
-
-  if(
-    data &&
-    Array.isArray(data.articles)
-  ){
-    return data.articles;
-  }
-
-  return [];
-}
-
-
-async function loadLatestSource(source){
+async function findLatestFile(source){
 
   const today = new Date();
 
   for(let i=0;i<14;i++){
 
-    const d = new Date(today);
+    const date = new Date(today);
 
-    d.setDate(
-      today.getDate() - i
-    );
+    date.setDate(today.getDate() - i);
 
-    const date =
-      d.toISOString().split("T")[0];
+    const dateString =
+      date.toISOString().slice(0,10);
 
-    const url =
-      `${DATA_PATH}${date}-${source}.json`;
+    const filename =
+      dateString + "-" + source + ".json";
 
     const data =
-      await fetchJSON(url);
+      await loadJSON(
+        DATA_PATH + filename
+      );
 
     if(data){
-
       return {
-        date,
-        records:extractRecords(data)
+        date:dateString,
+        data:data
       };
-
     }
 
   }
 
-  return {
-    date:null,
-    records:[]
-  };
+  return null;
+
 }
 
 
-/* =========================================================
-   FDA NORMALIZATION
-========================================================= */
-
-function normalizeFDA(record){
-
-  const drug =
-    findField(record,[
-      "drug",
-      "drug_name",
-      "brand_name",
-      "product",
-      "products",
-      "application_number"
-    ]);
-
-  const company =
-    findField(record,[
-      "company",
-      "sponsor",
-      "applicant",
-      "manufacturer"
-    ]);
-
-  const indication =
-    findField(record,[
-      "indication",
-      "conditions",
-      "condition",
-      "cancer_type"
-    ]);
-
-  const action =
-    findField(record,[
-      "action",
-      "approval_action",
-      "what_happened",
-      "description",
-      "summary"
-    ]);
-
-  const date =
-    findField(record,[
-      "approval_date",
-      "date",
-      "effective_date",
-      "submission_date"
-    ]);
-
-  let implication =
-    "This regulatory development may affect the treatment landscape, competitive positioning or commercial opportunity.";
-
-  const raw =
-    JSON.stringify(record).toLowerCase();
-
-  if(
-    raw.includes("approval")
-  ){
-
-    implication =
-      "FDA approval can expand or establish a commercial opportunity and may change the competitive treatment landscape.";
-
-  }else if(
-    raw.includes("label")
-  ){
-
-    implication =
-      "The labeling change may modify the eligible patient population, treatment positioning or commercial opportunity.";
-
-  }
-
-  return {
-
-    source:"fda",
-    label:"REGULATORY",
-
-    title:
-      drug
-      ? `${cleanText(drug)} — FDA regulatory update`
-      : "FDA oncology regulatory update",
-
-    drug:cleanText(drug),
-    company:cleanText(company),
-    indication:cleanText(indication),
-    date,
-
-    whatHappened:
-      cleanText(action) ||
-      "A new FDA oncology regulatory development was identified.",
-
-    whyItMatters:
-      implication,
-
-    identifier:
-      findField(record,[
-        "application_number",
-        "application",
-        "id"
-      ]),
-
-    raw:record
-  };
-}
-
-
-/* =========================================================
-   CLINICAL TRIAL NORMALIZATION
-========================================================= */
-
-function normalizeClinicalTrial(record){
-
-  const study =
-    record.study || record;
-
-  const title =
-    findField(study,[
-      "briefTitle",
-      "title",
-      "officialTitle"
-    ]);
-
-  const id =
-    findField(study,[
-      "nctId",
-      "nct_id",
-      "NCTId",
-      "id"
-    ]);
-
-  const status =
-    findField(study,[
-      "status",
-      "overallStatus"
-    ]);
-
-  const phase =
-    findField(study,[
-      "phase",
-      "phases"
-    ]);
-
-  const sponsor =
-    findField(study,[
-      "sponsor",
-      "sponsor_name",
-      "organization"
-    ]);
-
-  const conditions =
-    findField(study,[
-      "conditions",
-      "condition",
-      "indications"
-    ]);
-
-  const interventions =
-    findField(study,[
-      "interventions",
-      "intervention",
-      "drug"
-    ]);
-
-  const date =
-    findField(study,[
-      "lastUpdatePostDate",
-      "last_update_post_date",
-      "studyFirstPostDate",
-      "date"
-    ]);
-
-  return {
-
-    source:"clinicaltrials",
-    label:"CLINICAL TRIAL",
-
-    title:
-      cleanText(title) ||
-      "New oncology clinical trial",
-
-    drug:
-      cleanText(interventions),
-
-    company:
-      cleanText(sponsor),
-
-    indication:
-      cleanText(conditions),
-
-    phase:
-      cleanText(phase),
-
-    status:
-      cleanText(status),
-
-    identifier:
-      cleanText(id),
-
-    date,
-
-    whatHappened:
-
-      phase
-      ? `${phase} oncology study identified${status ? `; current status: ${status}.` : "."}`
-      : `New oncology clinical study identified${status ? `; current status: ${status}.` : "."}`,
-
-    whyItMatters:
-
-      "The study provides a signal on clinical development, future treatment options and the potential competitive landscape.",
-
-    raw:record
-  };
-}
-
-
-/* =========================================================
-   PUBMED NORMALIZATION
-========================================================= */
-
-function normalizePubMed(record){
-
-  const title =
-    findField(record,[
-      "title",
-      "article_title"
-    ]);
-
-  const abstract =
-    findField(record,[
-      "abstract",
-      "abstract_text",
-      "summary"
-    ]);
-
-  const journal =
-    findField(record,[
-      "journal",
-      "journal_title"
-    ]);
-
-  const date =
-    findField(record,[
-      "publication_date",
-      "pub_date",
-      "date"
-    ]);
-
-  const pmid =
-    findField(record,[
-      "pmid",
-      "PMID",
-      "id"
-    ]);
-
-  return {
-
-    source:"pubmed",
-    label:"SCIENTIFIC",
-
-    title:
-      cleanText(title) ||
-      "New oncology scientific publication",
-
-    drug:"",
-    company:"",
-    indication:"",
-
-    date,
-
-    identifier:
-      cleanText(pmid),
-
-    journal:
-      cleanText(journal),
-
-    whatHappened:
-
-      truncate(
-        abstract ||
-        "A new oncology research publication was identified.",
-        240
-      ),
-
-    whyItMatters:
-
-      "The publication may provide evidence relevant to disease biology, treatment strategy, biomarkers or clinical development.",
-
-    raw:record
-  };
-}
-
-
-/* =========================================================
+/* ==========================================================
    LOAD ALL INTELLIGENCE
-========================================================= */
+========================================================== */
 
-async function loadAllIntelligence(){
+async function loadIntelligence(){
 
-  setPipelineStatus(
-    "Loading oncology intelligence..."
-  );
-
-  const [
-    fda,
-    clinical,
-    pubmed
-  ] =
+  const results =
     await Promise.all([
-
-      loadLatestSource("fda"),
-
-      loadLatestSource(
-        "clinicaltrials"
-      ),
-
-      loadLatestSource(
-        "pubmed"
-      )
-
+      findLatestFile("fda"),
+      findLatestFile("clinicaltrials"),
+      findLatestFile("pubmed")
     ]);
 
 
-  const fdaItems =
-    fda.records.map(
-      normalizeFDA
-    );
+  const all = [];
 
-  const clinicalItems =
-    clinical.records.map(
-      normalizeClinicalTrial
-    );
 
-  const pubmedItems =
-    pubmed.records.map(
-      normalizePubMed
-    );
+  results.forEach((result,index)=>{
 
-
-  allItems = [
-
-    ...fdaItems,
-    ...clinicalItems,
-    ...pubmedItems
-
-  ];
-
-
-  renderTopThree(
-    allItems
-  );
-
-  renderFeed(
-    allItems
-  );
-
-
-  setPipelineStatus(
-    `${allItems.length} intelligence records loaded`
-  );
-
-
-  return allItems;
-}
-
-
-/* =========================================================
-   TOP 3 RANKING
-========================================================= */
-
-function scoreItem(item){
-
-  let score = 0;
-
-  if(item.source === "fda"){
-    score += 100;
-  }
-
-  if(item.source === "clinicaltrials"){
-    score += 70;
-  }
-
-  if(item.source === "pubmed"){
-    score += 50;
-  }
-
-  if(item.drug){
-    score += 15;
-  }
-
-  if(item.company){
-    score += 10;
-  }
-
-  if(item.indication){
-    score += 10;
-  }
-
-  if(
-    /approval|approved|label|supplemental/i
-      .test(item.whatHappened)
-  ){
-    score += 30;
-  }
-
-  return score;
-}
-
-
-function getTopThree(items){
-
-  return [...items]
-    .sort(
-      (a,b) =>
-        scoreItem(b) -
-        scoreItem(a)
-    )
-    .slice(0,3);
-}
-
-
-/* =========================================================
-   TOP 3 CARDS
-========================================================= */
-
-function renderTopThree(items){
-
-  const container =
-    document.getElementById(
-      "topCards"
-    );
-
-  if(!container){
-    return;
-  }
-
-  container.innerHTML = "";
-
-  const top =
-    getTopThree(items);
-
-
-  if(!top.length){
-
-    container.innerHTML = `
-      <div class="empty">
-        No live oncology intelligence found yet.
-      </div>
-    `;
-
-    return;
-  }
-
-
-  top.forEach(item => {
-
-    container.appendChild(
-      createIntelligenceCard(item)
-    );
-
-  });
-}
-
-
-function createIntelligenceCard(item){
-
-  const card =
-    document.createElement(
-      "article"
-    );
-
-  card.className =
-    "intelligence-card";
-
-
-  const sourceClass =
-    item.source === "fda"
-    ? "orange"
-    : item.source === "clinicaltrials"
-    ? "blue"
-    : "purple";
-
-
-  let metadata = "";
-
-
-  if(item.drug){
-
-    metadata += `
-      <span>
-        <strong>Asset</strong>
-        ${escapeHTML(item.drug)}
-      </span>
-    `;
-
-  }
-
-
-  if(item.company){
-
-    metadata += `
-      <span>
-        <strong>Company</strong>
-        ${escapeHTML(item.company)}
-      </span>
-    `;
-
-  }
-
-
-  if(item.indication){
-
-    metadata += `
-      <span>
-        <strong>Indication</strong>
-        ${escapeHTML(item.indication)}
-      </span>
-    `;
-
-  }
-
-
-  if(item.phase){
-
-    metadata += `
-      <span>
-        <strong>Phase</strong>
-        ${escapeHTML(item.phase)}
-      </span>
-    `;
-
-  }
-
-
-  card.innerHTML = `
-
-    <div class="card-source ${sourceClass}">
-      ${escapeHTML(item.label)}
-    </div>
-
-    <h3>
-      ${escapeHTML(item.title)}
-    </h3>
-
-    <div class="card-date">
-      ${escapeHTML(
-        formatDate(item.date)
-      )}
-    </div>
-
-    ${
-      metadata
-      ? `
-        <div class="card-meta">
-          ${metadata}
-        </div>
-      `
-      : ""
+    if(!result){
+      return;
     }
 
+    const source =
+      ["fda","clinicaltrials","pubmed"][index];
 
-    <div class="card-section">
-
-      <div class="card-label">
-        WHAT HAPPENED
-      </div>
-
-      <p>
-        ${escapeHTML(
-          item.whatHappened
-        )}
-      </p>
-
-    </div>
+    const records =
+      extractRecords(result.data);
 
 
-    <div class="card-section">
+    records.forEach(record=>{
 
-      <div class="card-label">
-        WHY IT MATTERS
-      </div>
+      let normalized = null;
 
-      <p>
-        ${escapeHTML(
-          item.whyItMatters
-        )}
-      </p>
+      if(source === "fda"){
+        normalized = normalizeFDA(record);
+      }
 
-    </div>
+      if(source === "clinicaltrials"){
+        normalized = normalizeClinicalTrial(record);
+      }
 
+      if(source === "pubmed"){
+        normalized = normalizePubMed(record);
+      }
 
-    ${
-      item.identifier
-      ? `
-        <div class="card-footer">
-          ${escapeHTML(
-            item.identifier
-          )}
-        </div>
-      `
-      : ""
-    }
+      if(normalized){
+        normalized.dataDate =
+          result.date;
 
-  `;
-
-  return card;
-}
-
-
-/* =========================================================
-   DAILY FEED
-========================================================= */
-
-function renderFeed(items){
-
-  const container =
-    document.getElementById(
-      "feed"
-    );
-
-  if(!container){
-    return;
-  }
-
-
-  let filtered =
-    currentFilter === "all"
-    ? items
-    : items.filter(
-        item =>
-          item.source ===
-          currentFilter
-      );
-
-
-  if(!filtered.length){
-
-    container.innerHTML = `
-      <div class="empty">
-        No intelligence records found for this category.
-      </div>
-    `;
-
-    return;
-  }
-
-
-  container.innerHTML = "";
-
-
-  filtered
-    .slice(0,50)
-    .forEach(item => {
-
-      const card =
-        document.createElement(
-          "article"
-        );
-
-      card.className =
-        "feed-card";
-
-
-      const sourceClass =
-        item.source === "fda"
-        ? "orange"
-        : item.source === "clinicaltrials"
-        ? "blue"
-        : "purple";
-
-
-      card.innerHTML = `
-
-        <div class="feed-top">
-
-          <div>
-
-            <div
-              class="feed-source ${sourceClass}">
-              ${escapeHTML(
-                item.label
-              )}
-            </div>
-
-            <div class="feed-title">
-              ${escapeHTML(
-                item.title
-              )}
-            </div>
-
-            <div class="feed-summary">
-              ${escapeHTML(
-                truncate(
-                  item.whatHappened,
-                  260
-                )
-              )}
-            </div>
-
-          </div>
-
-          <div class="feed-date">
-            ${escapeHTML(
-              formatDate(
-                item.date
-              )
-            )}
-          </div>
-
-        </div>
-
-
-        <div class="feed-details">
-
-          ${
-            item.drug
-            ? `
-              <div class="detail">
-                <div class="detail-label">
-                  Asset
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHTML(
-                    item.drug
-                  )}
-                </div>
-              </div>
-            `
-            : ""
-          }
-
-
-          ${
-            item.company
-            ? `
-              <div class="detail">
-                <div class="detail-label">
-                  Company
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHTML(
-                    item.company
-                  )}
-                </div>
-              </div>
-            `
-            : ""
-          }
-
-
-          ${
-            item.indication
-            ? `
-              <div class="detail">
-                <div class="detail-label">
-                  Indication
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHTML(
-                    item.indication
-                  )}
-                </div>
-              </div>
-            `
-            : ""
-          }
-
-
-          ${
-            item.phase
-            ? `
-              <div class="detail">
-                <div class="detail-label">
-                  Phase
-                </div>
-
-                <div class="detail-value">
-                  ${escapeHTML(
-                    item.phase
-                  )}
-                </div>
-              </div>
-            `
-            : ""
-          }
-
-        </div>
-
-      `;
-
-      container.appendChild(
-        card
-      );
+        all.push(normalized);
+      }
 
     });
-}
-
-
-/* =========================================================
-   FILTER BUTTONS
-========================================================= */
-
-document
-  .querySelectorAll(
-    ".filter"
-  )
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        document
-          .querySelectorAll(
-            ".filter"
-          )
-          .forEach(btn => {
-
-            btn.classList.remove(
-              "active"
-            );
-
-          });
-
-
-        button.classList.add(
-          "active"
-        );
-
-
-        currentFilter =
-          button.dataset.filter;
-
-
-        renderFeed(
-          allItems
-        );
-
-      }
-    );
 
   });
 
 
-/* =========================================================
-   DIGEST
-========================================================= */
+  return all;
 
-async function loadLatestDigest(){
+}
+
+
+/* ==========================================================
+   LOAD LATEST DIGEST
+========================================================== */
+
+async function loadDigest(){
 
   const today =
     new Date();
 
-
   for(let i=0;i<14;i++){
 
-    const d =
+    const date =
       new Date(today);
 
-    d.setDate(
+    date.setDate(
       today.getDate() - i
     );
 
+    const dateString =
+      date.toISOString().slice(0,10);
 
-    const date =
-      d.toISOString()
-        .split("T")[0];
-
-
-    const url =
-      `${DIGEST_PATH}${date}-digest.md`;
+    const filename =
+      dateString + "-digest.md";
 
 
     try{
 
       const response =
         await fetch(
-          url,
+          DIGEST_PATH +
+          filename +
+          "?v=" +
+          Date.now(),
           {
             cache:"no-store"
           }
         );
 
 
-      if(
-        !response.ok
-      ){
-        continue;
+      if(response.ok){
+
+        return {
+          date:dateString,
+          text:await response.text()
+        };
+
       }
 
-
-      const text =
-        await response.text();
-
-
-      document
-        .getElementById(
-          "digestStatus"
-        )
-        .textContent =
-        `Latest digest · ${formatDate(date)}`;
-
-
-      updateHero(
-        text
-      );
-
-
-      return;
-
-    }catch(error){
-
-      console.warn(
-        "Digest unavailable:",
-        error
-      );
-
-    }
+    }catch(e){}
 
   }
 
+  return null;
+
+}
+
+
+/* ==========================================================
+   RENDER TOP 3
+========================================================== */
+
+function renderTop3(records){
+
+  const container =
+    document.getElementById("topCards");
+
+
+  if(!records.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        No live intelligence records found yet.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const top =
+    records
+      .slice()
+      .sort((a,b)=>{
+
+        const priority = {
+          regulatory:3,
+          clinical:2,
+          scientific:1
+        };
+
+        return (
+          priority[b.type] -
+          priority[a.type]
+        );
+
+      })
+      .slice(0,3);
+
+
+  container.innerHTML =
+    top.map(record=>{
+
+      return `
+
+        <article class="card">
+
+          <div class="card-type">
+            ${escapeHTML(record.label)}
+          </div>
+
+          <h3>
+            ${escapeHTML(record.title)}
+          </h3>
+
+          <div class="meta">
+
+            <div class="meta-row">
+              <div class="meta-label">
+                Asset
+              </div>
+
+              <div class="meta-value">
+                ${escapeHTML(record.asset || "Not specified")}
+              </div>
+            </div>
+
+
+            <div class="meta-row">
+              <div class="meta-label">
+                Company
+              </div>
+
+              <div class="meta-value">
+                ${escapeHTML(record.company || "Not specified")}
+              </div>
+            </div>
+
+
+            ${
+              record.application
+              ? `
+                <div class="meta-row">
+
+                  <div class="meta-label">
+                    Application
+                  </div>
+
+                  <div class="meta-value">
+                    ${escapeHTML(record.application)}
+                  </div>
+
+                </div>
+              `
+              : ""
+            }
+
+          </div>
+
+
+          <div class="what">
+
+            <div class="what-label">
+              What happened
+            </div>
+
+            <div class="what-text">
+              ${escapeHTML(
+                record.what ||
+                "New oncology intelligence identified."
+              )}
+            </div>
+
+          </div>
+
+
+          ${
+            record.url
+            ? `
+              <a
+                class="source-link"
+                href="${escapeHTML(record.url)}"
+                target="_blank"
+                rel="noopener">
+                Open source →
+              </a>
+            `
+            : ""
+          }
+
+        </article>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* ==========================================================
+   RENDER FEED
+========================================================== */
+
+let allRecords = [];
+
+
+function renderFeed(filter="all"){
+
+  const container =
+    document.getElementById("feed");
+
+
+  let records =
+    allRecords;
+
+
+  if(filter !== "all"){
+
+    records =
+      allRecords.filter(
+        item =>
+          item.type === filter
+      );
+
+  }
+
+
+  if(!records.length){
+
+    container.innerHTML = `
+      <div class="empty">
+        No intelligence available for this category.
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    records
+      .slice(0,30)
+      .map(record=>{
+
+        return `
+
+          <article class="feed-item">
+
+            <div class="feed-top">
+
+              <div
+                class="feed-type"
+                style="
+                  color:
+                  ${
+                    record.type === "regulatory"
+                    ? "var(--orange)"
+                    :
+                    record.type === "clinical"
+                    ? "var(--blue)"
+                    :
+                    "var(--purple)"
+                  };
+                ">
+
+                ${escapeHTML(record.label)}
+
+              </div>
+
+
+              <div class="feed-date">
+
+                ${escapeHTML(
+                  formatDate(record.date)
+                )}
+
+              </div>
+
+            </div>
+
+
+            <div class="feed-title">
+              ${escapeHTML(record.title)}
+            </div>
+
+
+            <div class="feed-summary">
+
+              ${escapeHTML(
+                record.what ||
+                "New oncology intelligence identified."
+              )}
+
+            </div>
+
+
+            ${
+              record.url
+              ? `
+                <a
+                  class="source-link"
+                  href="${escapeHTML(record.url)}"
+                  target="_blank"
+                  rel="noopener">
+                  View source →
+                </a>
+              `
+              : ""
+            }
+
+          </article>
+
+        `;
+
+      }).join("");
+
+}
+
+
+/* ==========================================================
+   DIGEST STATUS
+========================================================== */
+
+function updateDigestStatus(digest){
+
+  const element =
+    document.getElementById("digestStatus");
+
+
+  if(digest){
+
+    element.textContent =
+      "Latest digest · " +
+      formatDate(digest.date);
+
+  }else{
+
+    element.textContent =
+      "Digest unavailable";
+
+  }
+
+}
+
+
+/* ==========================================================
+   FILTER BUTTONS
+========================================================== */
+
+function setupFilters(){
 
   document
-    .getElementById(
-      "digestStatus"
-    )
-    .textContent =
-    "Digest unavailable";
-}
+    .querySelectorAll(".filter")
+    .forEach(button=>{
 
+      button.addEventListener(
+        "click",
+        ()=>{
 
-function updateHero(text){
+          document
+            .querySelectorAll(".filter")
+            .forEach(btn =>
+              btn.classList.remove("active")
+            );
 
-  const lines =
-    text
-      .split("\n")
-      .map(
-        x => cleanText(x)
-      )
-      .filter(Boolean);
+          button.classList.add("active");
 
+          renderFeed(
+            button.dataset.filter
+          );
 
-  const candidate =
-    lines.find(
-      line =>
-        line.length > 60 &&
-        !line.startsWith("#") &&
-        !line.startsWith("-")
-    );
-
-
-  if(candidate){
-
-    document
-      .getElementById(
-        "heroDescription"
-      )
-      .textContent =
-      truncate(
-        candidate,
-        300
-      );
-
-  }
-}
-
-
-/* =========================================================
-   PIPELINE STATUS
-========================================================= */
-
-function setPipelineStatus(text){
-
-  const el =
-    document.getElementById(
-      "pipelineStatus"
-    );
-
-  if(el){
-    el.textContent =
-      text;
-  }
-}
-
-
-/* =========================================================
-   TUTOR
-========================================================= */
-
-function copyTutorPrompt(){
-
-  const question =
-    document
-      .getElementById(
-        "tutorQuestion"
-      )
-      .value
-      .trim();
-
-
-  const prompt = `
-
-You are my oncology tutor.
-
-Explain the following oncology question
-at a beginner-to-intermediate level.
-
-Question:
-${question || "[insert question]"}
-
-Use this structure:
-
-1. Simple answer
-2. Explain the biology/clinical concept
-3. Why it matters clinically
-4. Why it matters commercially in pharma
-5. Simple example
-6. Three questions to test my understanding
-
-Keep the explanation clear, memorable and practical.
-
-  `.trim();
-
-
-  navigator.clipboard
-    .writeText(prompt)
-    .then(() => {
-
-      alert(
-        "Tutor prompt copied."
-      );
-
-    })
-    .catch(() => {
-
-      alert(
-        "Could not copy automatically. Please select and copy the prompt manually."
+        }
       );
 
     });
@@ -2427,27 +2175,139 @@ Keep the explanation clear, memorable and practical.
 }
 
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+/* ==========================================================
+   LEARNING ACCORDIONS
+========================================================== */
 
-async function initialize(){
+function setupLearning(){
 
-  await loadLatestDigest();
+  document
+    .querySelectorAll(".learning-button")
+    .forEach(button=>{
 
-  await loadAllIntelligence();
+      button.addEventListener(
+        "click",
+        ()=>{
+
+          const item =
+            button.parentElement;
+
+          item.classList.toggle("open");
+
+        }
+      );
+
+    });
 
 }
 
 
-/* =========================================================
-   START
-========================================================= */
+/* ==========================================================
+   COPY TUTOR PROMPT
+========================================================== */
 
-document.addEventListener(
-  "DOMContentLoaded",
-  initialize
-);
+async function copyTutorPrompt(){
+
+  const prompt =
+`Teach me oncology from zero. Explain today's oncology development in simple language, then connect it to disease biology, treatment, patient journey, competition and pharma commercial implications. End with 5 quiz questions.`;
+
+  try{
+
+    await navigator.clipboard.writeText(prompt);
+
+    alert("Tutor prompt copied.");
+
+  }catch(e){
+
+    alert("Could not copy automatically.");
+
+  }
+
+}
+
+
+/* ==========================================================
+   NAVIGATION
+========================================================== */
+
+function scrollToSection(id){
+
+  const element =
+    document.getElementById(id);
+
+  if(element){
+
+    element.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+}
+
+
+/* ==========================================================
+   INITIALIZE
+========================================================== */
+
+async function init(){
+
+  setupFilters();
+
+  setupLearning();
+
+
+  const [
+    records,
+    digest
+  ] = await Promise.all([
+    loadIntelligence(),
+    loadDigest()
+  ]);
+
+
+  allRecords =
+    records;
+
+
+  const status =
+    document.getElementById(
+      "pipelineStatus"
+    );
+
+
+  if(records.length){
+
+    status.textContent =
+      records.length +
+      " intelligence records loaded";
+
+  }else{
+
+    status.textContent =
+      "Data pipeline active";
+
+  }
+
+
+  updateDigestStatus(
+    digest
+  );
+
+
+  renderTop3(
+    records
+  );
+
+
+  renderFeed(
+    "all"
+  );
+
+}
+
+
+init();
 
 </script>
 
