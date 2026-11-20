@@ -1,10 +1,10 @@
-name: Test ClinicalTrials Collector
+name: ClinicalTrials Collector
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  collect:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,3 +21,38 @@ jobs:
 
       - name: Run ClinicalTrials collector
         run: python collectors/clinicaltrials.py
+
+      - name: Save ClinicalTrials data
+        run: |
+          mkdir -p data/issues
+          python - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+
+          from collectors.clinicaltrials import collect_clinical_trials
+
+          result = collect_clinical_trials()
+
+          today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+          filename = f"data/issues/{today}-clinicaltrials.json"
+
+          with open(filename, "w", encoding="utf-8") as f:
+              json.dump(result, f, indent=2, ensure_ascii=False)
+
+          print(f"Saved ClinicalTrials data to {filename}")
+          PY
+
+      - name: Commit collected data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add data/issues/
+
+          if git diff --cached --quiet; then
+            echo "No new ClinicalTrials data to commit."
+          else
+            git commit -m "Update ClinicalTrials data"
+            git push
+          fi
