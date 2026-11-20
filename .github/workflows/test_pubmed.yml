@@ -1,10 +1,10 @@
-name: Test PubMed Collector
+name: PubMed Collector
 
 on:
   workflow_dispatch:
 
 jobs:
-  test:
+  collect:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,3 +21,37 @@ jobs:
 
       - name: Run PubMed collector
         run: python collectors/pubmed.py
+
+      - name: Save PubMed data
+        run: |
+          mkdir -p data/issues
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+
+          from collectors.pubmed import collect_pubmed
+
+          result = collect_pubmed()
+
+          today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+          filename = f"data/issues/{today}-pubmed.json"
+
+          with open(filename, "w", encoding="utf-8") as f:
+              json.dump(result, f, indent=2, ensure_ascii=False)
+
+          print(f"Saved PubMed data to {filename}")
+          PY
+
+      - name: Commit collected data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add data/issues/
+
+          if git diff --cached --quiet; then
+            echo "No new PubMed data to commit."
+          else
+            git commit -m "Update PubMed data"
+            git push
+          fi
