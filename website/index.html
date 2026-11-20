@@ -1539,6 +1539,715 @@ function copyTutorPrompt(){
 
 init();
 
+<script>
+const DATA_PATH = "data/issues/";
+const DIGEST_PATH = "data/digests/";
+
+const SOURCES = {
+  fda: {
+    label: "REGULATORY",
+    title: "FDA / Regulatory",
+    color: "orange"
+  },
+  clinicaltrials: {
+    label: "CLINICAL TRIAL",
+    title: "Clinical Trials",
+    color: "blue"
+  },
+  pubmed: {
+    label: "SCIENTIFIC",
+    title: "Scientific Research",
+    color: "purple"
+  }
+};
+
+let allItems = [];
+let digestText = "";
+
+function escapeHTML(value) {
+  if (value === null || value === undefined) return "";
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function cleanText(value) {
+  if (!value) return "";
+  return String(value)
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function truncate(text, length = 180) {
+  text = cleanText(text);
+  return text.length > length
+    ? text.substring(0, length).trim() + "…"
+    : text;
+}
+
+function formatDate(dateString) {
+  if (!dateString) return "";
+
+  try {
+    const d = new Date(dateString);
+    if (isNaN(d)) return dateString;
+
+    return d.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    });
+  } catch {
+    return dateString;
+  }
+}
+
+function findField(obj, fields) {
+  for (const field of fields) {
+    if (
+      obj[field] !== undefined &&
+      obj[field] !== null &&
+      String(obj[field]).trim() !== ""
+    ) {
+      return obj[field];
+    }
+  }
+  return "";
+}
+
+/* -----------------------------
+   SOURCE NORMALIZATION
+----------------------------- */
+
+function normalizeFDA(record) {
+  const drug =
+    findField(record, [
+      "drug",
+      "drug_name",
+      "brand_name",
+      "products",
+      "application_number"
+    ]);
+
+  const company =
+    findField(record, [
+      "company",
+      "sponsor",
+      "applicant",
+      "manufacturer"
+    ]);
+
+  const indication =
+    findField(record, [
+      "indication",
+      "conditions",
+      "condition",
+      "cancer_type"
+    ]);
+
+  const action =
+    findField(record, [
+      "action",
+      "approval_action",
+      "what_happened",
+      "description"
+    ]);
+
+  const date =
+    findField(record, [
+      "approval_date",
+      "date",
+      "submission_date",
+      "effective_date"
+    ]);
+
+  return {
+    source: "fda",
+    label: "REGULATORY",
+    title: drug
+      ? `${cleanText(drug)} — FDA regulatory update`
+      : "FDA oncology regulatory update",
+
+    drug: cleanText(drug),
+    company: cleanText(company),
+    indication: cleanText(indication),
+    date: date,
+
+    whatHappened:
+      cleanText(action) ||
+      "A new FDA regulatory development was identified in the oncology dataset.",
+
+    whyItMatters:
+      buildRegulatoryImplication(record, drug, indication),
+
+    raw: record
+  };
+}
+
+function buildRegulatoryImplication(record, drug, indication) {
+  const text = JSON.stringify(record).toLowerCase();
+
+  if (
+    text.includes("supplemental") ||
+    text.includes("labeling") ||
+    text.includes("label")
+  ) {
+    return "The regulatory change may expand, modify, or clarify the clinical use and commercial opportunity for the asset.";
+  }
+
+  if (text.includes("approval")) {
+    return "An FDA approval can create or expand a commercial opportunity and may change the competitive treatment landscape.";
+  }
+
+  return "This regulatory development may affect the treatment landscape, competitive positioning, or commercial opportunity.";
+}
+
+function normalizeClinicalTrial(record) {
+  const study = record.study || record;
+
+  const id =
+    findField(study, [
+      "nctId",
+      "nct_id",
+      "NCTId",
+      "id"
+    ]);
+
+  const title =
+    findField(study, [
+      "briefTitle",
+      "title",
+      "officialTitle"
+    ]);
+
+  const status =
+    findField(study, [
+      "status",
+      "overallStatus"
+    ]);
+
+  const phase =
+    findField(study, [
+      "phase",
+      "phases"
+    ]);
+
+  const sponsor =
+    findField(study, [
+      "sponsor",
+      "sponsor_name",
+      "organization"
+    ]);
+
+  const conditions =
+    findField(study, [
+      "conditions",
+      "condition",
+      "indications"
+    ]);
+
+  const interventions =
+    findField(study, [
+      "interventions",
+      "intervention",
+      "drug"
+    ]);
+
+  const date =
+    findField(study, [
+      "lastUpdatePostDate",
+      "last_update_post_date",
+      "studyFirstPostDate",
+      "date"
+    ]);
+
+  return {
+    source: "clinicaltrials",
+    label: "CLINICAL TRIAL",
+    title: cleanText(title) || "New oncology clinical trial",
+    drug: cleanText(interventions),
+    company: cleanText(sponsor),
+    indication: cleanText(conditions),
+    phase: cleanText(phase),
+    status: cleanText(status),
+    identifier: cleanText(id),
+    date: date,
+
+    whatHappened:
+      buildTrialSummary(status, phase, title),
+
+    whyItMatters:
+      buildTrialImplication(status, phase),
+
+    raw: record
+  };
+}
+
+function buildTrialSummary(status, phase, title) {
+  let summary = "A new oncology clinical-trial record was identified.";
+
+  if (phase) {
+    summary = `${phase} oncology study identified`;
+  }
+
+  if (status) {
+    summary += `; current status: ${status}.`;
+  } else {
+    summary += ".";
+  }
+
+  return summary;
+}
+
+function buildTrialImplication(status, phase) {
+  if (
+    status &&
+    /recruiting|active|enrolling/i.test(status)
+  ) {
+    return "The study provides a signal on ongoing clinical development and the potential future competitive landscape.";
+  }
+
+  if (
+    status &&
+    /completed|terminated|withdrawn/i.test(status)
+  ) {
+    return "The trial status is relevant for assessing development progress, competitive momentum, and future treatment options.";
+  }
+
+  return "The study provides a signal on the oncology development landscape and potential future competition.";
+}
+
+function normalizePubMed(record) {
+  const title =
+    findField(record, [
+      "title",
+      "article_title"
+    ]);
+
+  const journal =
+    findField(record, [
+      "journal",
+      "journal_title"
+    ]);
+
+  const abstract =
+    findField(record, [
+      "abstract",
+      "abstract_text",
+      "summary"
+    ]);
+
+  const date =
+    findField(record, [
+      "publication_date",
+      "pub_date",
+      "date"
+    ]);
+
+  const pmid =
+    findField(record, [
+      "pmid",
+      "PMID",
+      "id"
+    ]);
+
+  return {
+    source: "pubmed",
+    label: "SCIENTIFIC",
+    title:
+      cleanText(title) || "New oncology scientific publication",
+
+    drug: "",
+    company: "",
+    indication: "",
+    date: date,
+    identifier: pmid,
+
+    whatHappened:
+      truncate(
+        cleanText(abstract) ||
+        "A new oncology research publication was identified.",
+        240
+      ),
+
+    whyItMatters:
+      "The publication may provide new evidence relevant to disease biology, treatment strategy, biomarkers, or clinical development.",
+
+    journal: cleanText(journal),
+
+    raw: record
+  };
+}
+
+/* -----------------------------
+   LOAD JSON
+----------------------------- */
+
+async function loadJSON(url) {
+  try {
+    const response = await fetch(url, {
+      cache: "no-store"
+    });
+
+    if (!response.ok) return null;
+
+    return await response.json();
+  } catch (error) {
+    console.warn("Could not load:", url);
+    return null;
+  }
+}
+
+async function loadSource(source) {
+  const dates = [];
+
+  const now = new Date();
+
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() - i);
+
+    const date =
+      d.toISOString().split("T")[0];
+
+    dates.push(date);
+  }
+
+  for (const date of dates) {
+    const path =
+      `${DATA_PATH}${date}-${source}.json`;
+
+    const data = await loadJSON(path);
+
+    if (data) {
+      return extractRecords(data);
+    }
+  }
+
+  return [];
+}
+
+function extractRecords(data) {
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+  if (data.records && Array.isArray(data.records)) {
+    return data.records;
+  }
+
+  if (data.studies && Array.isArray(data.studies)) {
+    return data.studies;
+  }
+
+  if (data.articles && Array.isArray(data.articles)) {
+    return data.articles;
+  }
+
+  if (data.results && Array.isArray(data.results)) {
+    return data.results;
+  }
+
+  return [];
+}
+
+/* -----------------------------
+   LOAD DIGEST
+----------------------------- */
+
+async function loadLatestDigest() {
+  const now = new Date();
+
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() - i);
+
+    const date =
+      d.toISOString().split("T")[0];
+
+    const url =
+      `${DIGEST_PATH}${date}-digest.md`;
+
+    try {
+      const response = await fetch(url, {
+        cache: "no-store"
+      });
+
+      if (response.ok) {
+        digestText = await response.text();
+
+        updateDigestStatus(date);
+        updateHeroFromDigest(digestText);
+
+        return;
+      }
+    } catch {}
+  }
+}
+
+function updateDigestStatus(date) {
+  const elements =
+    document.querySelectorAll(".status-pill");
+
+  elements.forEach(el => {
+    if (
+      el.textContent.includes("Pipeline active")
+    ) {
+      el.textContent =
+        `Latest digest · ${formatDate(date)}`;
+    }
+  });
+}
+
+/* -----------------------------
+   HERO
+----------------------------- */
+
+function updateHeroFromDigest(text) {
+  const heroParagraph =
+    document.querySelector(".hero p");
+
+  if (!heroParagraph || !text) return;
+
+  const lines = text
+    .split("\n")
+    .map(x => x.trim())
+    .filter(Boolean);
+
+  const meaningful =
+    lines.find(line =>
+      !line.startsWith("#") &&
+      !line.startsWith("-") &&
+      line.length > 50
+    );
+
+  if (meaningful) {
+    heroParagraph.textContent =
+      truncate(meaningful, 280);
+  }
+}
+
+/* -----------------------------
+   TOP 3
+----------------------------- */
+
+function renderTop3(items) {
+  const section =
+    document.querySelector(".top3-grid") ||
+    document.querySelector("#top3");
+
+  if (!section) return;
+
+  section.innerHTML = "";
+
+  const selected =
+    selectTopThree(items);
+
+  if (!selected.length) {
+    section.innerHTML = `
+      <div class="empty-state">
+        No live oncology intelligence found yet.
+      </div>
+    `;
+    return;
+  }
+
+  selected.forEach(item => {
+    section.appendChild(
+      createIntelligenceCard(item)
+    );
+  });
+}
+
+function selectTopThree(items) {
+  const ranked = [...items];
+
+  ranked.sort((a, b) => {
+    const scoreA = intelligenceScore(a);
+    const scoreB = intelligenceScore(b);
+
+    return scoreB - scoreA;
+  });
+
+  return ranked.slice(0, 3);
+}
+
+function intelligenceScore(item) {
+  let score = 0;
+
+  if (item.source === "fda") score += 100;
+  if (item.source === "clinicaltrials") score += 70;
+  if (item.source === "pubmed") score += 50;
+
+  if (
+    /approval|approved|label|supplemental/i.test(
+      item.whatHappened
+    )
+  ) {
+    score += 30;
+  }
+
+  if (item.drug) score += 10;
+  if (item.company) score += 10;
+  if (item.indication) score += 10;
+
+  return score;
+}
+
+/* -----------------------------
+   INTELLIGENCE CARD
+----------------------------- */
+
+function createIntelligenceCard(item) {
+  const card =
+    document.createElement("article");
+
+  card.className =
+    "intelligence-card";
+
+  const sourceClass =
+    item.source === "fda"
+      ? "orange"
+      : item.source === "clinicaltrials"
+      ? "blue"
+      : "purple";
+
+  const metadata = [];
+
+  if (item.drug) {
+    metadata.push(
+      `<span><strong>Asset</strong> ${escapeHTML(item.drug)}</span>`
+    );
+  }
+
+  if (item.company) {
+    metadata.push(
+      `<span><strong>Company</strong> ${escapeHTML(item.company)}</span>`
+    );
+  }
+
+  if (item.indication) {
+    metadata.push(
+      `<span><strong>Indication</strong> ${escapeHTML(item.indication)}</span>`
+    );
+  }
+
+  if (item.phase) {
+    metadata.push(
+      `<span><strong>Phase</strong> ${escapeHTML(item.phase)}</span>`
+    );
+  }
+
+  card.innerHTML = `
+    <div class="card-source ${sourceClass}">
+      ${escapeHTML(item.label)}
+    </div>
+
+    <h3>
+      ${escapeHTML(item.title)}
+    </h3>
+
+    <div class="card-date">
+      ${escapeHTML(formatDate(item.date))}
+    </div>
+
+    ${
+      metadata.length
+        ? `
+          <div class="card-meta">
+            ${metadata.join("")}
+          </div>
+        `
+        : ""
+    }
+
+    <div class="card-section">
+      <div class="card-label">
+        WHAT HAPPENED
+      </div>
+
+      <p>
+        ${escapeHTML(item.whatHappened)}
+      </p>
+    </div>
+
+    <div class="card-section">
+      <div class="card-label">
+        WHY IT MATTERS
+      </div>
+
+      <p>
+        ${escapeHTML(item.whyItMatters)}
+      </p>
+    </div>
+
+    ${
+      item.identifier
+        ? `
+          <div class="card-footer">
+            ${escapeHTML(item.identifier)}
+          </div>
+        `
+        : ""
+    }
+  `;
+
+  return card;
+}
+
+/* -----------------------------
+   FULL DATA LOAD
+----------------------------- */
+
+async function initializeIntelligence() {
+  const [
+    fdaRecords,
+    trialRecords,
+    pubmedRecords
+  ] = await Promise.all([
+    loadSource("fda"),
+    loadSource("clinicaltrials"),
+    loadSource("pubmed")
+  ]);
+
+  allItems = [
+    ...fdaRecords.map(normalizeFDA),
+    ...trialRecords.map(normalizeClinicalTrial),
+    ...pubmedRecords.map(normalizePubMed)
+  ];
+
+  renderTop3(allItems);
+
+  updateDataStatus(allItems);
+}
+
+function updateDataStatus(items) {
+  const count = items.length;
+
+  document
+    .querySelectorAll(".data-status")
+    .forEach(el => {
+      el.textContent =
+        count > 0
+          ? `Data pipeline active · ${count} intelligence records`
+          : "Data pipeline active · awaiting records";
+    });
+}
+
+/* -----------------------------
+   START
+----------------------------- */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  async () => {
+    await loadLatestDigest();
+    await initializeIntelligence();
+  }
+);
 </script>
 
 </body>
