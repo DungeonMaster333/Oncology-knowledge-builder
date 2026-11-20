@@ -17,21 +17,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+ build:
+  runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
 
-      - name: Upload website
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: website
+    - name: Prepare website data
+      run: |
+        rm -rf website/data
+        mkdir -p website/data/issues website/data/digests
+        cp -R data/issues/. website/data/issues/
+        cp -R data/digests/. website/data/digests/
 
+    - name: Upload website
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: website
   deploy:
     environment:
       name: github-pages
