@@ -1,7 +1,688 @@
 {
   "source": "FDA",
-  "retrieved_at": "2026-11-20T18:13:58.984767+00:00",
+  "retrieved_at": "2026-11-20T18:25:57.364253+00:00",
   "records_retrieved": 1089,
-  "oncology_records": 0,
-  "records": []
+  "oncology_candidates": 25,
+  "oncology_records": 25,
+  "records": [
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "TPOXX (TECOVIRIMAT MONOHYDRATE) — FDA regulatory update",
+      "drug": "TPOXX",
+      "active_ingredient": "TECOVIRIMAT MONOHYDRATE",
+      "strength": "TECOVIRIMAT 200MG",
+      "company": "SIGA TECHNOLOGIES",
+      "application_number": "NDA208627",
+      "dosage_form": "CAPSULE",
+      "route": "ORAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20240603",
+      "review_priority": "STANDARD",
+      "oncology_indication": "",
+      "oncology_signal": {
+        "score": 6,
+        "drug_terms": [],
+        "class_terms": [],
+        "disease_terms": [
+          "cancer",
+          "breast cancer"
+        ]
+      },
+      "what_happened": "FDA regulatory activity for TPOXX.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "VIVJOA (OTESECONAZOLE) — FDA regulatory update",
+      "drug": "VIVJOA",
+      "active_ingredient": "OTESECONAZOLE",
+      "strength": "OTESECONAZOLE 150MG",
+      "company": "MYCOVIA PHARMS",
+      "application_number": "NDA215888",
+      "dosage_form": "CAPSULE",
+      "route": "ORAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20240411",
+      "review_priority": "STANDARD",
+      "oncology_indication": "",
+      "oncology_signal": {
+        "score": 6,
+        "drug_terms": [],
+        "class_terms": [],
+        "disease_terms": [
+          "cancer",
+          "breast cancer"
+        ]
+      },
+      "what_happened": "FDA regulatory activity for VIVJOA.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "ZEPATIER (ELBASVIR AND GRAZOPREVIR) — FDA regulatory update",
+      "drug": "ZEPATIER",
+      "active_ingredient": "ELBASVIR AND GRAZOPREVIR",
+      "strength": "ELBASVIR 50MG, GRAZOPREVIR 100MG",
+      "company": "MSD SUB MERCK",
+      "application_number": "NDA208261",
+      "dosage_form": "TABLET",
+      "route": "ORAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20211209",
+      "review_priority": "STANDARD",
+      "oncology_indication": "",
+      "oncology_signal": {
+        "score": 6,
+        "drug_terms": [],
+        "class_terms": [],
+        "disease_terms": [
+          "cancer",
+          "breast cancer"
+        ]
+      },
+      "what_happened": "FDA regulatory activity for ZEPATIER.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "ITRACONAZOLE (ITRACONAZOLE) — FDA regulatory update",
+      "drug": "ITRACONAZOLE",
+      "active_ingredient": "ITRACONAZOLE",
+      "strength": "ITRACONAZOLE 10MG/ML",
+      "company": "AMNEAL PHARMS",
+      "application_number": "ANDA205573",
+      "dosage_form": "SOLUTION",
+      "route": "ORAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20200316",
+      "review_priority": "STANDARD",
+      "oncology_indication": "",
+      "oncology_signal": {
+        "score": 6,
+        "drug_terms": [],
+        "class_terms": [],
+        "disease_terms": [
+          "cancer",
+          "breast cancer"
+        ]
+      },
+      "what_happened": "FDA regulatory activity for ITRACONAZOLE.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "GAZYVA (OBINUTUZUMAB) — FDA regulatory update",
+      "drug": "GAZYVA",
+      "active_ingredient": "OBINUTUZUMAB",
+      "strength": "OBINUTUZUMAB 1000MG/40ML",
+      "company": "GENENTECH",
+      "application_number": "BLA125486",
+      "dosage_form": "INJECTABLE",
+      "route": "INJECTION",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20261113",
+      "review_priority": "PRIORITY",
+      "oncology_indication": "1 INDICATIONS AND USAGE GAZYVA is a CD20-directed cytolytic antibody indicated: in combination with chlorambucil, for the treatment of patients with previously untreated chronic lymphocytic leukemia (CLL). ( 1.1 , 14 ) in combination with bendamustine followed by GAZYVA monotherapy, for the treatment of patients with follicular lymphoma (FL)who relapsed after, or are refractory to, a rituximab-containing regimen. ( 1.2 , 14 ) in combination with chemotherapy followed by GAZYVA monotherapy in patients achieving at least a partial remission, for the treatment of adult patients with previously untreated stage II bulky, III or IV follicular lymphoma. ( 1.2 , 14 ) for the treatment of adult...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "obinutuzumab"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for GAZYVA. Oncology indication context: 1 INDICATIONS AND USAGE GAZYVA is a CD20-directed cytolytic antibody indicated: in combination with chlorambucil, for the treatment of patients with previously untreated chronic lymphocytic leukemia (CLL). ( 1.1 , 14 ) in combination with bendamustine followed by GAZYVA monotherapy, for the treatment of patients with follicular lymphoma (FL)who relapsed after, or are refractory to, a rituximab-containing regimen. ( 1.2 , 14 ) in combination with chemotherapy followed by GAZYVA monotherapy in patients achieving at least a partial remission, for the treatment of adult patients with previously untreated stage II bulky, III or IV follicular lymphoma. ( 1.2 , 14 ) for the treatment of adult...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "REVLIMID (LENALIDOMIDE) — FDA regulatory update",
+      "drug": "REVLIMID",
+      "active_ingredient": "LENALIDOMIDE",
+      "strength": "LENALIDOMIDE 2.5MG, LENALIDOMIDE 15MG, LENALIDOMIDE 5MG, LENALIDOMIDE 20MG, LENALIDOMIDE 25MG, LENALIDOMIDE 10MG",
+      "company": "BRISTOL MYERS SQUIBB",
+      "application_number": "NDA021880",
+      "dosage_form": "CAPSULE",
+      "route": "ORAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20260722",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE REVLIMID is a thalidomide analogue indicated for the treatment of adult patients with: • Multiple myeloma (MM), in combination with dexamethasone ( 1.1 ). • MM, as maintenance following autologous hematopoietic stem cell transplantation (auto-HSCT) ( 1.1 ). • Transfusion-dependent anemia due to low- or intermediate-1-risk myelodysplastic syndromes (MDS) associated with a deletion 5q abnormality with or without additional cytogenetic abnormalities ( 1.2 ). • Mantle cell lymphoma (MCL) whose disease has relapsed or progressed after two prior therapies, one of which included bortezomib ( 1.3 ). • Previously treated follicular lymphoma (FL), in combination with a...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "lenalidomide"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for REVLIMID. Oncology indication context: 1 INDICATIONS AND USAGE REVLIMID is a thalidomide analogue indicated for the treatment of adult patients with: • Multiple myeloma (MM), in combination with dexamethasone ( 1.1 ). • MM, as maintenance following autologous hematopoietic stem cell transplantation (auto-HSCT) ( 1.1 ). • Transfusion-dependent anemia due to low- or intermediate-1-risk myelodysplastic syndromes (MDS) associated with a deletion 5q abnormality with or without additional cytogenetic abnormalities ( 1.2 ). • Mantle cell lymphoma (MCL) whose disease has relapsed or progressed after two prior therapies, one of which included bortezomib ( 1.3 ). • Previously treated follicular lymphoma (FL), in combination with a...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "LEUPROLIDE ACETATE (LEUPROLIDE ACETATE) — FDA regulatory update",
+      "drug": "LEUPROLIDE ACETATE",
+      "active_ingredient": "LEUPROLIDE ACETATE",
+      "strength": "LEUPROLIDE ACETATE 14MG/2.8ML (1MG/0.2ML)",
+      "company": "SUN PHARM",
+      "application_number": "ANDA078885",
+      "dosage_form": "SOLUTION",
+      "route": "SUBCUTANEOUS",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20260506",
+      "review_priority": "STANDARD",
+      "oncology_indication": "INDICATIONS AND USAGE Leuprolide acetate injection is indicated in the palliative treatment of advanced prostatic cancer.",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "leuprolide"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for LEUPROLIDE ACETATE. Oncology indication context: INDICATIONS AND USAGE Leuprolide acetate injection is indicated in the palliative treatment of advanced prostatic cancer.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "LEUPROLIDE ACETATE (LEUPROLIDE ACETATE) — FDA regulatory update",
+      "drug": "LEUPROLIDE ACETATE",
+      "active_ingredient": "LEUPROLIDE ACETATE",
+      "strength": "LEUPROLIDE ACETATE 14MG/2.8ML (1MG/0.2ML)",
+      "company": "SANDOZ",
+      "application_number": "ANDA074728",
+      "dosage_form": "SOLUTION",
+      "route": "SUBCUTANEOUS",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20260506",
+      "review_priority": "STANDARD",
+      "oncology_indication": "INDICATIONS AND USAGE Leuprolide acetate injection is indicated in the palliative treatment of advanced prostatic cancer.",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "leuprolide"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for LEUPROLIDE ACETATE. Oncology indication context: INDICATIONS AND USAGE Leuprolide acetate injection is indicated in the palliative treatment of advanced prostatic cancer.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "GEMCITABINE HYDROCHLORIDE (GEMCITABINE HYDROCHLORIDE) — FDA regulatory update",
+      "drug": "GEMCITABINE HYDROCHLORIDE",
+      "active_ingredient": "GEMCITABINE HYDROCHLORIDE",
+      "strength": "GEMCITABINE HYDROCHLORIDE 1GM/26.3ML (38MG/ML), GEMCITABINE HYDROCHLORIDE 2GM/52.6ML (38MG/ML), GEMCITABINE HYDROCHLORIDE 200MG/5.26ML (38MG/ML)",
+      "company": "ADAPTIS",
+      "application_number": "ANDA210991",
+      "dosage_form": "INJECTABLE",
+      "route": "INJECTION",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20250804",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Gemcitabine for Injection is a nucleoside metabolic inhibitor indicated: • in combination with carboplatin, for the treatment of advanced ovarian cancer that has relapsed at least 6 months after completion of platinum-based therapy. ( 1.1 ) • in combination with paclitaxel, for first-line treatment of metastatic breast cancer after failure of prior anthracycline-containing adjuvant chemotherapy, unless anthracyclines were clinically contraindicated. ( 1.2 ) • in combination with cisplatin, for the treatment of non-small cell lung cancer. ( 1.3 ) • as a single agent for the treatment of pancreatic cancer. ( 1.4 ) 1.1 Ovarian Cancer Gemcitabine for Injection in...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "gemcitabine"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for GEMCITABINE HYDROCHLORIDE. Oncology indication context: 1 INDICATIONS AND USAGE Gemcitabine for Injection is a nucleoside metabolic inhibitor indicated: • in combination with carboplatin, for the treatment of advanced ovarian cancer that has relapsed at least 6 months after completion of platinum-based therapy. ( 1.1 ) • in combination with paclitaxel, for first-line treatment of metastatic breast cancer after failure of prior anthracycline-containing adjuvant chemotherapy, unless anthracyclines were clinically contraindicated. ( 1.2 ) • in combination with cisplatin, for the treatment of non-small cell lung cancer. ( 1.3 ) • as a single agent for the treatment of pancreatic cancer. ( 1.4 ) 1.1 Ovarian Cancer Gemcitabine for Injection in...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "DOXORUBICIN HYDROCHLORIDE (DOXORUBICIN HYDROCHLORIDE) — FDA regulatory update",
+      "drug": "DOXORUBICIN HYDROCHLORIDE",
+      "active_ingredient": "DOXORUBICIN HYDROCHLORIDE",
+      "strength": "DOXORUBICIN HYDROCHLORIDE 2MG/ML",
+      "company": "FRESENIUS KABI USA",
+      "application_number": "ANDA063277",
+      "dosage_form": "INJECTABLE",
+      "route": "INJECTION",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20250603",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Doxorubicin Hydrochloride Injection is an anthracycline topoisomerase inhibitor indicated: • as a component of multi-agent adjuvant chemotherapy for treatment of women with axillary lymph node involvement following resection of primary breast cancer ( 1.1 ) • for the treatment of: acute lymphoblastic leukemia, acute myeloblastic leukemia, Hodgkin lymphoma, Non-Hodgkin lymphoma, metastatic breast cancer, metastatic Wilms' tumor, metastatic neuroblastoma, metastatic soft tissue sarcoma, metastatic bone sarcomas, metastatic ovarian carcinoma, metastatic transitional cell bladder carcinoma, metastatic thyroid carcinoma, metastatic gastric carcinoma, metastatic...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "doxorubicin"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for DOXORUBICIN HYDROCHLORIDE. Oncology indication context: 1 INDICATIONS AND USAGE Doxorubicin Hydrochloride Injection is an anthracycline topoisomerase inhibitor indicated: • as a component of multi-agent adjuvant chemotherapy for treatment of women with axillary lymph node involvement following resection of primary breast cancer ( 1.1 ) • for the treatment of: acute lymphoblastic leukemia, acute myeloblastic leukemia, Hodgkin lymphoma, Non-Hodgkin lymphoma, metastatic breast cancer, metastatic Wilms' tumor, metastatic neuroblastoma, metastatic soft tissue sarcoma, metastatic bone sarcomas, metastatic ovarian carcinoma, metastatic transitional cell bladder carcinoma, metastatic thyroid carcinoma, metastatic gastric carcinoma, metastatic...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "GEMCITABINE (GEMCITABINE HYDROCHLORIDE) — FDA regulatory update",
+      "drug": "GEMCITABINE",
+      "active_ingredient": "GEMCITABINE HYDROCHLORIDE",
+      "strength": "GEMCITABINE HYDROCHLORIDE EQ 1GM BASE/VIAL, GEMCITABINE HYDROCHLORIDE EQ 200MG BASE/VIAL",
+      "company": "JIANGSU HANSOH PHARM",
+      "application_number": "ANDA202485",
+      "dosage_form": "INJECTABLE",
+      "route": "INJECTION",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20240924",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Gemcitabine Injection is a nucleoside metabolic inhibitor indicated: • in combination with carboplatin, for the treatment of advanced ovarian cancer that has relapsed at least 6 months after completion of platinum-based therapy. ( 1.1 ) • in combination with paclitaxel, for first-line treatment of metastatic breast cancer after failure of prior anthracycline-containing adjuvant chemotherapy, unless anthracyclines were clinically contraindicated. ( 1.2 ) • in combination with cisplatin for the treatment of non-small cell lung cancer. ( 1.3 ) • as a single agent for the treatment of pancreatic cancer. ( 1.4 ) 1.1 Ovarian Cancer Gemcitabine Injection in combination with...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "gemcitabine"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for GEMCITABINE. Oncology indication context: 1 INDICATIONS AND USAGE Gemcitabine Injection is a nucleoside metabolic inhibitor indicated: • in combination with carboplatin, for the treatment of advanced ovarian cancer that has relapsed at least 6 months after completion of platinum-based therapy. ( 1.1 ) • in combination with paclitaxel, for first-line treatment of metastatic breast cancer after failure of prior anthracycline-containing adjuvant chemotherapy, unless anthracyclines were clinically contraindicated. ( 1.2 ) • in combination with cisplatin for the treatment of non-small cell lung cancer. ( 1.3 ) • as a single agent for the treatment of pancreatic cancer. ( 1.4 ) 1.1 Ovarian Cancer Gemcitabine Injection in combination with...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "CARBOPLATIN (CARBOPLATIN) — FDA regulatory update",
+      "drug": "CARBOPLATIN",
+      "active_ingredient": "CARBOPLATIN",
+      "strength": "CARBOPLATIN 50MG/5ML (10MG/ML), CARBOPLATIN 150MG/15ML (10MG/ML), CARBOPLATIN 450MG/45ML (10MG/ML)",
+      "company": "HOSPIRA",
+      "application_number": "ANDA076517",
+      "dosage_form": "INJECTABLE",
+      "route": "INTRAVENOUS",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20240607",
+      "review_priority": "STANDARD",
+      "oncology_indication": "INDICATIONS Initial Treatment of Advanced Ovarian Carcinoma Carboplatin injection is indicated for the initial treatment of advanced ovarian carcinoma in established combination with other approved chemotherapeutic agents. One established combination regimen consists of carboplatin and cyclophosphamide. Two randomized controlled studies conducted by the NCIC and SWOG with carboplatin versus cisplatin, both in combination with cyclophosphamide, have demonstrated equivalent overall survival between the two groups (see CLINICAL STUDIES ). There is limited statistical power to demonstrate equivalence in overall pathologic complete response rates and long-term survival (≥ 3 years) because of the...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "carboplatin"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for CARBOPLATIN. Oncology indication context: INDICATIONS Initial Treatment of Advanced Ovarian Carcinoma Carboplatin injection is indicated for the initial treatment of advanced ovarian carcinoma in established combination with other approved chemotherapeutic agents. One established combination regimen consists of carboplatin and cyclophosphamide. Two randomized controlled studies conducted by the NCIC and SWOG with carboplatin versus cisplatin, both in combination with cyclophosphamide, have demonstrated equivalent overall survival between the two groups (see CLINICAL STUDIES ). There is limited statistical power to demonstrate equivalence in overall pathologic complete response rates and long-term survival (≥ 3 years) because of the...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "IBRUTINIB (IBRUTINIB) — FDA regulatory update",
+      "drug": "IBRUTINIB",
+      "active_ingredient": "IBRUTINIB",
+      "strength": "IBRUTINIB 560MG, IBRUTINIB 280MG, IBRUTINIB 420MG, IBRUTINIB 140MG",
+      "company": "SANDOZ INC",
+      "application_number": "ANDA215464",
+      "dosage_form": "TABLET",
+      "route": "ORAL",
+      "submission_type": "ORIG",
+      "submission_status": "TA",
+      "submission_status_date": "20230210",
+      "review_priority": "STANDARD",
+      "oncology_indication": "",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "ibrutinib"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for IBRUTINIB.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "ABIRATERONE (ABIRATERONE ACETATE) — FDA regulatory update",
+      "drug": "ABIRATERONE",
+      "active_ingredient": "ABIRATERONE ACETATE",
+      "strength": "ABIRATERONE ACETATE 250MG, ABIRATERONE ACETATE 500MG",
+      "company": "MSN",
+      "application_number": "ANDA210686",
+      "dosage_form": "TABLET",
+      "route": "ORAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20220902",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Abiraterone acetate tablets are indicated in combination with prednisone for the treatment of patients with Metastatic castration-resistant prostate cancer (CRPC) Metastatic high-risk castration-sensitive prostate cancer (CSPC) Abiraterone acetate tablet is a CYP17 inhibitor indicated in combination with prednisone for the treatment of patients with metastatic castration-resistant prostate cancer (CRPC). ( 1) metastatic high-risk castration-sensitive prostate cancer (CSPC). ( 1 )",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "abiraterone"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for ABIRATERONE. Oncology indication context: 1 INDICATIONS AND USAGE Abiraterone acetate tablets are indicated in combination with prednisone for the treatment of patients with Metastatic castration-resistant prostate cancer (CRPC) Metastatic high-risk castration-sensitive prostate cancer (CSPC) Abiraterone acetate tablet is a CYP17 inhibitor indicated in combination with prednisone for the treatment of patients with metastatic castration-resistant prostate cancer (CRPC). ( 1) metastatic high-risk castration-sensitive prostate cancer (CSPC). ( 1 )",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "TOLAK (FLUOROURACIL) — FDA regulatory update",
+      "drug": "TOLAK",
+      "active_ingredient": "FLUOROURACIL",
+      "strength": "FLUOROURACIL 4%",
+      "company": "HILL DERMACEUTICALS",
+      "application_number": "NDA022259",
+      "dosage_form": "CREAM",
+      "route": "TOPICAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20220825",
+      "review_priority": "STANDARD",
+      "oncology_indication": "",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "fluorouracil"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for TOLAK.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "BORTEZOMIB (BORTEZOMIB) — FDA regulatory update",
+      "drug": "BORTEZOMIB",
+      "active_ingredient": "BORTEZOMIB",
+      "strength": "BORTEZOMIB 3.5MG/VIAL",
+      "company": "BAXTER HLTHCARE CORP",
+      "application_number": "ANDA213823",
+      "dosage_form": "INJECTABLE",
+      "route": "INTRAVENOUS, SUBCUTANEOUS",
+      "submission_type": "ORIG",
+      "submission_status": "AP",
+      "submission_status_date": "20220502",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Bortezomib for injection is a proteasome inhibitor indicated for: • treatment of adult patients with multiple myeloma ( 1.1 ) • treatment of adult patients with mantle cell lymphoma ( 1.2 ) 1.1 Multiple Myeloma Bortezomib for injection is indicated for the treatment of adult patients with multiple myeloma. 1.2 Mantle Cell Lymphoma Bortezomib for injection is indicated for the treatment of adult patients with mantle cell lymphoma.",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "bortezomib"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for BORTEZOMIB. Oncology indication context: 1 INDICATIONS AND USAGE Bortezomib for injection is a proteasome inhibitor indicated for: • treatment of adult patients with multiple myeloma ( 1.1 ) • treatment of adult patients with mantle cell lymphoma ( 1.2 ) 1.1 Multiple Myeloma Bortezomib for injection is indicated for the treatment of adult patients with multiple myeloma. 1.2 Mantle Cell Lymphoma Bortezomib for injection is indicated for the treatment of adult patients with mantle cell lymphoma.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "TEMOZOLOMIDE (TEMOZOLOMIDE) — FDA regulatory update",
+      "drug": "TEMOZOLOMIDE",
+      "active_ingredient": "TEMOZOLOMIDE",
+      "strength": "TEMOZOLOMIDE 100MG, TEMOZOLOMIDE 5MG, TEMOZOLOMIDE 250MG, TEMOZOLOMIDE 140MG, TEMOZOLOMIDE 20MG, TEMOZOLOMIDE 180MG",
+      "company": "ZYDUS PHARMS",
+      "application_number": "ANDA206750",
+      "dosage_form": "CAPSULE",
+      "route": "ORAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20210730",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1. INDICATIONS AND USAGE TEMOZOLOMIDE Capsules are an alkylating drug indicated for the treatment of adult patients with: Newly diagnosed glioblastoma concomitantly with radiotherapy and then as maintenance treatment. ( 1.1 ) Anaplastic astrocytoma ( 1.2 ) Adjuvant treatment of adults with newly diagnosed anaplastic astrocytoma. ( 1.2 ) Treatment of adults with refractory anaplastic astrocytoma. ( 1.2 ) 1.1 Newly Diagnosed Glioblastoma TEMOZOLOMIDE Capsules is indicated for the treatment of adults with newly diagnosed glioblastoma, concomitantly with radiotherapy and then as maintenance treatment. 1.2 Anaplastic Astrocytoma TEMOZOLOMIDE Capsules is indicated for the: adjuvant treatment of...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "temozolomide"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for TEMOZOLOMIDE. Oncology indication context: 1. INDICATIONS AND USAGE TEMOZOLOMIDE Capsules are an alkylating drug indicated for the treatment of adult patients with: Newly diagnosed glioblastoma concomitantly with radiotherapy and then as maintenance treatment. ( 1.1 ) Anaplastic astrocytoma ( 1.2 ) Adjuvant treatment of adults with newly diagnosed anaplastic astrocytoma. ( 1.2 ) Treatment of adults with refractory anaplastic astrocytoma. ( 1.2 ) 1.1 Newly Diagnosed Glioblastoma TEMOZOLOMIDE Capsules is indicated for the treatment of adults with newly diagnosed glioblastoma, concomitantly with radiotherapy and then as maintenance treatment. 1.2 Anaplastic Astrocytoma TEMOZOLOMIDE Capsules is indicated for the: adjuvant treatment of...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "AZACITIDINE (AZACITIDINE) — FDA regulatory update",
+      "drug": "AZACITIDINE",
+      "active_ingredient": "AZACITIDINE",
+      "strength": "AZACITIDINE 100MG/VIAL",
+      "company": "DR REDDYS",
+      "application_number": "ANDA201537",
+      "dosage_form": "POWDER",
+      "route": "INTRAVENOUS, SUBCUTANEOUS",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20200922",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Azacitidine for injection is a nucleoside metabolic inhibitor indicated for the treatment of: Adult patients with the following FAB myelodysplastic syndrome (MDS) subtypes: Refractory anemia (RA) or refractory anemia with ringed sideroblasts (RARS) (if accompanied by neutropenia or thrombocytopenia or requiring transfusions), refractory anemia with excess blasts (RAEB), refractory anemia with excess blasts in transformation (RAEB-T), and chronic myelomonocytic leukemia (CMMoL). ( 1.1 ) 1.1 Myelodysplastic Syndromes (MDS) Azacitidine for injection is indicated for treatment of adult patients with the following French-American-British (FAB) myelodysplastic syndrome...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "azacitidine"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for AZACITIDINE. Oncology indication context: 1 INDICATIONS AND USAGE Azacitidine for injection is a nucleoside metabolic inhibitor indicated for the treatment of: Adult patients with the following FAB myelodysplastic syndrome (MDS) subtypes: Refractory anemia (RA) or refractory anemia with ringed sideroblasts (RARS) (if accompanied by neutropenia or thrombocytopenia or requiring transfusions), refractory anemia with excess blasts (RAEB), refractory anemia with excess blasts in transformation (RAEB-T), and chronic myelomonocytic leukemia (CMMoL). ( 1.1 ) 1.1 Myelodysplastic Syndromes (MDS) Azacitidine for injection is indicated for treatment of adult patients with the following French-American-British (FAB) myelodysplastic syndrome...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "DOXORUBICIN HYDROCHLORIDE (DOXORUBICIN HYDROCHLORIDE) — FDA regulatory update",
+      "drug": "DOXORUBICIN HYDROCHLORIDE",
+      "active_ingredient": "DOXORUBICIN HYDROCHLORIDE",
+      "strength": "DOXORUBICIN HYDROCHLORIDE 2MG/ML",
+      "company": "SAGENT PHARMS",
+      "application_number": "ANDA091495",
+      "dosage_form": "INJECTABLE",
+      "route": "INJECTION",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20200716",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Doxorubicin Hydrochloride Injection is an anthracycline topoisomerase inhibitor indicated: • as a component of multi-agent adjuvant chemotherapy for treatment of women with axillary lymph node involvement following resection of primary breast cancer ( 1.1 ) • for the treatment of: acute lymphoblastic leukemia, acute myeloblastic leukemia, Hodgkin lymphoma, Non-Hodgkin lymphoma, metastatic breast cancer, metastatic Wilms' tumor, metastatic neuroblastoma, metastatic soft tissue sarcoma, metastatic bone sarcomas, metastatic ovarian carcinoma, metastatic transitional cell bladder carcinoma, metastatic thyroid carcinoma, metastatic gastric carcinoma, metastatic...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "doxorubicin"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for DOXORUBICIN HYDROCHLORIDE. Oncology indication context: 1 INDICATIONS AND USAGE Doxorubicin Hydrochloride Injection is an anthracycline topoisomerase inhibitor indicated: • as a component of multi-agent adjuvant chemotherapy for treatment of women with axillary lymph node involvement following resection of primary breast cancer ( 1.1 ) • for the treatment of: acute lymphoblastic leukemia, acute myeloblastic leukemia, Hodgkin lymphoma, Non-Hodgkin lymphoma, metastatic breast cancer, metastatic Wilms' tumor, metastatic neuroblastoma, metastatic soft tissue sarcoma, metastatic bone sarcomas, metastatic ovarian carcinoma, metastatic transitional cell bladder carcinoma, metastatic thyroid carcinoma, metastatic gastric carcinoma, metastatic...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "PEMETREXED (PEMETREXED) — FDA regulatory update",
+      "drug": "PEMETREXED",
+      "active_ingredient": "PEMETREXED",
+      "strength": "PEMETREXED 100MG, PEMETREXED 500MG",
+      "company": "BIOCON LTD",
+      "application_number": "ANDA208927",
+      "dosage_form": "INJECTABLE",
+      "route": "INJECTION",
+      "submission_type": "ORIG",
+      "submission_status": "TA",
+      "submission_status_date": "20180504",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Pemetrexed for injection is a folate analog metabolic inhibitor indicated: in combination with pembrolizumab and platinum chemotherapy, for the initial treatment of patients with metastatic non-squamous non-small cell lung cancer (NSCLC), with no EGFR or ALK genomic tumor aberrations. ( 1.1 ) in combination with cisplatin for the initial treatment of patients with locally advanced or metastatic, non-squamous NSCLC. ( 1.1 ) as a single agent for the maintenance treatment of patients with locally advanced or metastatic, non-squamous NSCLC whose disease has not progressed after four cycles of platinum-based first-line chemotherapy. ( 1.1 ) as a single agent for the...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "pemetrexed"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for PEMETREXED. Oncology indication context: 1 INDICATIONS AND USAGE Pemetrexed for injection is a folate analog metabolic inhibitor indicated: in combination with pembrolizumab and platinum chemotherapy, for the initial treatment of patients with metastatic non-squamous non-small cell lung cancer (NSCLC), with no EGFR or ALK genomic tumor aberrations. ( 1.1 ) in combination with cisplatin for the initial treatment of patients with locally advanced or metastatic, non-squamous NSCLC. ( 1.1 ) as a single agent for the maintenance treatment of patients with locally advanced or metastatic, non-squamous NSCLC whose disease has not progressed after four cycles of platinum-based first-line chemotherapy. ( 1.1 ) as a single agent for the...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "TAMOXIFEN CITRATE (TAMOXIFEN CITRATE) — FDA regulatory update",
+      "drug": "TAMOXIFEN CITRATE",
+      "active_ingredient": "TAMOXIFEN CITRATE",
+      "strength": "TAMOXIFEN CITRATE EQ 20MG BASE, TAMOXIFEN CITRATE EQ 10MG BASE",
+      "company": "ZYDUS PHARMS",
+      "application_number": "ANDA206694",
+      "dosage_form": "TABLET",
+      "route": "ORAL",
+      "submission_type": "ORIG",
+      "submission_status": "AP",
+      "submission_status_date": "20171027",
+      "review_priority": "STANDARD",
+      "oncology_indication": "INDICATIONS AND USAGE Metastatic Breast Cancer: Tamoxifen citrate tablets are effective in the treatment of metastatic breast cancer in women and men. In premenopausal women with metastatic breast cancer, tamoxifen citrate tablets are an alternative to oophorectomy or ovarian irradiation. Available evidence indicates that patients whose tumors are estrogen receptor positive are more likely to benefit from tamoxifen citrate tablets therapy. Adjuvant Treatment of Breast Cancer: Tamoxifen citrate tablets are indicated for the treatment of node-positive breast cancer in women following total mastectomy or segmental mastectomy, axillary dissection, and breast irradiation. In some tamoxifen...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "tamoxifen"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for TAMOXIFEN CITRATE. Oncology indication context: INDICATIONS AND USAGE Metastatic Breast Cancer: Tamoxifen citrate tablets are effective in the treatment of metastatic breast cancer in women and men. In premenopausal women with metastatic breast cancer, tamoxifen citrate tablets are an alternative to oophorectomy or ovarian irradiation. Available evidence indicates that patients whose tumors are estrogen receptor positive are more likely to benefit from tamoxifen citrate tablets therapy. Adjuvant Treatment of Breast Cancer: Tamoxifen citrate tablets are indicated for the treatment of node-positive breast cancer in women following total mastectomy or segmental mastectomy, axillary dissection, and breast irradiation. In some tamoxifen...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "ANASTROZOLE (ANASTROZOLE) — FDA regulatory update",
+      "drug": "ANASTROZOLE",
+      "active_ingredient": "ANASTROZOLE",
+      "strength": "ANASTROZOLE 1MG",
+      "company": "SUN PHARM INDS LTD",
+      "application_number": "ANDA091177",
+      "dosage_form": "TABLET",
+      "route": "ORAL",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20150813",
+      "review_priority": "STANDARD",
+      "oncology_indication": "1 INDICATIONS AND USAGE Anastrozole is an aromatase inhibitor indicated for: Adjuvant treatment of postmenopausal women with hormone receptor-positive early breast cancer ( 1.1 ) First-line treatment of postmenopausal women with hormone receptor-positive or hormone receptor unknown locally advanced or metastatic breast cancer ( 1.2 ) Treatment of advanced breast cancer in postmenopausal women with disease progression following tamoxifen therapy. Patients with ER-negative disease and patients who did not respond to previous tamoxifen therapy rarely responded to anastrozole ( 1.3 ) 1.1 Adjuvant Treatment Anastrozole tablets are indicated for adjuvant treatment of postmenopausal women with...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "anastrozole"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for ANASTROZOLE. Oncology indication context: 1 INDICATIONS AND USAGE Anastrozole is an aromatase inhibitor indicated for: Adjuvant treatment of postmenopausal women with hormone receptor-positive early breast cancer ( 1.1 ) First-line treatment of postmenopausal women with hormone receptor-positive or hormone receptor unknown locally advanced or metastatic breast cancer ( 1.2 ) Treatment of advanced breast cancer in postmenopausal women with disease progression following tamoxifen therapy. Patients with ER-negative disease and patients who did not respond to previous tamoxifen therapy rarely responded to anastrozole ( 1.3 ) 1.1 Adjuvant Treatment Anastrozole tablets are indicated for adjuvant treatment of postmenopausal women with...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "TAXOL (PACLITAXEL) — FDA regulatory update",
+      "drug": "TAXOL",
+      "active_ingredient": "PACLITAXEL",
+      "strength": "PACLITAXEL 6MG/ML **Federal Register determination that product was not discontinued or withdrawn for safety or effectiveness reasons**",
+      "company": "HQ SPCLT PHARMA",
+      "application_number": "NDA020262",
+      "dosage_form": "INJECTABLE",
+      "route": "INJECTION",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20150303",
+      "review_priority": "STANDARD",
+      "oncology_indication": "",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "paclitaxel"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for TAXOL.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "CARBOPLATIN (CARBOPLATIN) — FDA regulatory update",
+      "drug": "CARBOPLATIN",
+      "active_ingredient": "CARBOPLATIN",
+      "strength": "CARBOPLATIN 150MG/15ML (10MG/ML), CARBOPLATIN 450MG/45ML (10MG/ML), CARBOPLATIN 50MG/5ML (10MG/ML)",
+      "company": "TEVA PARENTERAL",
+      "application_number": "ANDA077389",
+      "dosage_form": "INJECTABLE",
+      "route": "INTRAVENOUS",
+      "submission_type": "ORIG",
+      "submission_status": "AP",
+      "submission_status_date": "20070330",
+      "review_priority": "",
+      "oncology_indication": "INDICATIONS Initial Treatment of Advanced Ovarian Carcinoma Carboplatin injection is indicated for the initial treatment of advanced ovarian carcinoma in established combination with other approved chemotherapeutic agents. One established combination regimen consists of carboplatin and cyclophosphamide. Two randomized controlled studies conducted by the NCIC and SWOG with carboplatin versus cisplatin, both in combination with cyclophosphamide, have demonstrated equivalent overall survival between the two groups (see CLINICAL STUDIES ). There is limited statistical power to demonstrate equivalence in overall pathologic complete response rates and long-term survival (≥ 3 years) because of the...",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "carboplatin"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for CARBOPLATIN. Oncology indication context: INDICATIONS Initial Treatment of Advanced Ovarian Carcinoma Carboplatin injection is indicated for the initial treatment of advanced ovarian carcinoma in established combination with other approved chemotherapeutic agents. One established combination regimen consists of carboplatin and cyclophosphamide. Two randomized controlled studies conducted by the NCIC and SWOG with carboplatin versus cisplatin, both in combination with cyclophosphamide, have demonstrated equivalent overall survival between the two groups (see CLINICAL STUDIES ). There is limited statistical power to demonstrate equivalence in overall pathologic complete response rates and long-term survival (≥ 3 years) because of the...",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    },
+    {
+      "source": "FDA",
+      "type": "regulatory",
+      "title": "DAUNOXOME (DAUNORUBICIN CITRATE) — FDA regulatory update",
+      "drug": "DAUNOXOME",
+      "active_ingredient": "DAUNORUBICIN CITRATE",
+      "strength": "DAUNORUBICIN CITRATE EQ 2MG BASE/ML",
+      "company": "GALEN (UK)",
+      "application_number": "NDA050704",
+      "dosage_form": "INJECTABLE, LIPOSOMAL",
+      "route": "INJECTION",
+      "submission_type": "SUPPL",
+      "submission_status": "AP",
+      "submission_status_date": "20020221",
+      "review_priority": "STANDARD",
+      "oncology_indication": "",
+      "oncology_signal": {
+        "score": 5,
+        "drug_terms": [
+          "daunorubicin"
+        ],
+        "class_terms": [],
+        "disease_terms": []
+      },
+      "what_happened": "FDA regulatory activity for DAUNOXOME.",
+      "source_url": "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
+    }
+  ]
 }
