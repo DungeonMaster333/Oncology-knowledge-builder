@@ -1,13 +1,17 @@
 {
   "source": "FDA / openFDA Drugs@FDA",
   "source_url": "https://api.fda.gov/drug/drugsfda.json",
-  "collected_at": "2026-11-20T04:34:31.141203+00:00",
-  "records_retrieved": 99,
-  "oncology_records": 1,
+  "collected_at": "2026-11-20T04:39:28.639965+00:00",
+  "records_retrieved": 1000,
+  "oncology_records": 3,
   "records": [
     {
       "application_number": "NDA020083",
       "sponsor": "JANSSEN PHARMS",
+      "matched_terms": [
+        "cancer",
+        "breast cancer"
+      ],
       "products": [
         {
           "product_number": "001",
@@ -850,76 +854,198 @@
             }
           ]
         }
+      ]
+    },
+    {
+      "application_number": "ANDA204385",
+      "sponsor": "BARBARA ANN KARMANOS",
+      "matched_terms": [
+        "cancer"
       ],
-      "openfda": {
-        "application_number": [
-          "NDA020083"
-        ],
-        "brand_name": [
-          "SPORANOX",
-          "ITRACONAZOLE"
-        ],
-        "generic_name": [
-          "ITRACONAZOLE"
-        ],
-        "manufacturer_name": [
-          "Janssen Pharmaceuticals, Inc.",
-          "Patriot Pharmaceuticals"
-        ],
-        "product_ndc": [
-          "50458-290",
-          "10147-1700"
-        ],
-        "product_type": [
-          "HUMAN PRESCRIPTION DRUG"
-        ],
-        "route": [
-          "ORAL"
-        ],
-        "substance_name": [
-          "ITRACONAZOLE"
-        ],
-        "rxcui": [
-          "311204",
-          "833164"
-        ],
-        "spl_id": [
-          "a79c080b-711a-4a15-af92-ff0c60cbfdf1",
-          "2cca3625-96e8-34cf-e063-6294a90ac975"
-        ],
-        "spl_set_id": [
-          "a4d555fa-787c-40fb-bb7d-b0d4f7318fd0",
-          "6242b7ad-eaa0-a524-b6e0-ec33e63407db"
-        ],
-        "package_ndc": [
-          "50458-290-01",
-          "50458-290-04",
-          "50458-290-28",
-          "10147-1700-3",
-          "10147-1700-7"
-        ],
-        "nui": [
-          "N0000175487",
-          "M0002083",
-          "N0000182141",
-          "N0000185503",
-          "N0000190113"
-        ],
-        "pharm_class_epc": [
-          "Azole Antifungal [EPC]"
-        ],
-        "pharm_class_cs": [
-          "Azoles [CS]"
-        ],
-        "pharm_class_moa": [
-          "Cytochrome P450 3A4 Inhibitors [MoA]",
-          "P-Glycoprotein Inhibitors [MoA]",
-          "Breast Cancer Resistance Protein Inhibitors [MoA]"
-        ],
-        "unii": [
-          "304NUG5GF4"
-        ]
-      }
+      "products": [
+        {
+          "product_number": "001",
+          "reference_drug": "No",
+          "brand_name": "FLUDEOXYGLUCOSE F18",
+          "active_ingredients": [
+            {
+              "name": "FLUDEOXYGLUCOSE F-18",
+              "strength": "20-300mCi/ML"
+            }
+          ],
+          "reference_standard": "No",
+          "dosage_form": "INJECTABLE",
+          "route": "INTRAVENOUS",
+          "marketing_status": "Prescription",
+          "te_code": "AP"
+        }
+      ],
+      "submissions": [
+        {
+          "submission_type": "ORIG",
+          "submission_number": "1",
+          "submission_status": "AP",
+          "submission_status_date": "20141029",
+          "submission_class_code": "UNKNOWN"
+        },
+        {
+          "submission_type": "SUPPL",
+          "submission_number": "2",
+          "submission_status": "AP",
+          "submission_status_date": "20210223",
+          "review_priority": "STANDARD",
+          "submission_class_code": "LABELING",
+          "submission_class_code_description": "Labeling"
+        }
+      ]
+    },
+    {
+      "application_number": "NDA214621",
+      "sponsor": "SUMITOMO PHARMA AM",
+      "matched_terms": [
+        "cancer",
+        "breast cancer"
+      ],
+      "products": [
+        {
+          "product_number": "001",
+          "reference_drug": "Yes",
+          "brand_name": "ORGOVYX",
+          "active_ingredients": [
+            {
+              "name": "RELUGOLIX",
+              "strength": "120MG"
+            }
+          ],
+          "reference_standard": "Yes",
+          "dosage_form": "TABLET",
+          "route": "ORAL",
+          "marketing_status": "Prescription"
+        }
+      ],
+      "submissions": [
+        {
+          "submission_type": "SUPPL",
+          "submission_number": "12",
+          "submission_status": "AP",
+          "submission_status_date": "20251008",
+          "review_priority": "STANDARD",
+          "submission_class_code": "LABELING",
+          "submission_class_code_description": "Labeling",
+          "application_docs": [
+            {
+              "id": "83697",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/label/2025/214621s012lbl.pdf",
+              "date": "20251009",
+              "type": "Label"
+            },
+            {
+              "id": "83702",
+              "url": "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2025/214621Orig1s012ltr.pdf",
+              "date": "20251009",
+              "type": "Letter"
+            }
+          ]
+        },
+        {
+          "submission_type": "ORIG",
+          "submission_number": "1",
+          "submission_status": "AP",
+          "submission_status_date": "20201218",
+          "review_priority": "PRIORITY",
+          "submission_class_code": "TYPE 1",
+          "submission_class_code_description": "Type 1 - New Molecular Entity",
+          "application_docs": [
+            {
+              "id": "65622",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/label/2020/214621s000lbl.pdf",
+              "date": "20201218",
+              "type": "Label"
+            },
+            {
+              "id": "65712",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/appletter/2020/214621Orig1s000ltr.pdf",
+              "date": "20201223",
+              "type": "Letter"
+            },
+            {
+              "id": "65866",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/nda/2020/214621Orig1s000TOC.html",
+              "date": "20210107",
+              "type": "Review"
+            }
+          ]
+        },
+        {
+          "submission_type": "SUPPL",
+          "submission_number": "15",
+          "submission_status": "AP",
+          "submission_status_date": "20261104",
+          "review_priority": "STANDARD",
+          "submission_class_code": "LABELING",
+          "submission_class_code_description": "Labeling",
+          "application_docs": [
+            {
+              "id": "87644",
+              "url": "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2026/214621Orig1s015ltr.pdf",
+              "date": "20261105",
+              "type": "Letter"
+            },
+            {
+              "id": "87649",
+              "url": "https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/214621s015lbl.pdf",
+              "date": "20261106",
+              "type": "Label"
+            }
+          ]
+        },
+        {
+          "submission_type": "SUPPL",
+          "submission_number": "6",
+          "submission_status": "AP",
+          "submission_status_date": "20241018",
+          "review_priority": "STANDARD",
+          "submission_class_code": "EFFICACY",
+          "submission_class_code_description": "Efficacy",
+          "application_docs": [
+            {
+              "id": "79922",
+              "url": "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2024/214621Origs006ltr.pdf",
+              "date": "20241021",
+              "type": "Letter"
+            },
+            {
+              "id": "79941",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/label/2024/214621s006lbl.pdf",
+              "date": "20241021",
+              "type": "Label"
+            }
+          ]
+        },
+        {
+          "submission_type": "SUPPL",
+          "submission_number": "4",
+          "submission_status": "AP",
+          "submission_status_date": "20230330",
+          "review_priority": "STANDARD",
+          "submission_class_code": "LABELING",
+          "submission_class_code_description": "Labeling",
+          "application_docs": [
+            {
+              "id": "73909",
+              "url": "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2023/214621Orig1s004ltr.pdf",
+              "date": "20230331",
+              "type": "Letter"
+            },
+            {
+              "id": "73916",
+              "url": "http://www.accessdata.fda.gov/drugsatfda_docs/label/2023/214621s004lbl.pdf",
+              "date": "20230331",
+              "type": "Label"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
