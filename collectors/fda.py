@@ -4,306 +4,142 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
-from bs4 import BeautifulSoup
 
 
-# ============================================================
-# CONFIGURATION
-# ============================================================
-
-FDA_URL = (
-    "https://www.fda.gov/drugs/cancer-approvals/"
-    "oncology-cancerhematologic-malignancies-approval-notifications"
-)
-
-ROOT = Path(__file__).resolve().parents[1]
-OUTPUT_DIR = ROOT / "data" / "issues"
+OUTPUT_DIR = Path("data/issues")
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-OUTPUT_FILE = OUTPUT_DIR / (
-    f"{datetime.now(timezone.utc).strftime('%Y-%m-%d')}-fda.json"
-)
+API_URL = "https://api.fda.gov/drug/drugsfda.json"
+
+ONCOLOGY_TERMS = [
+    "cancer",
+    "oncology",
+    "tumor",
+    "tumour",
+    "carcinoma",
+    "lymphoma",
+    "leukemia",
+    "leukaemia",
+    "melanoma",
+    "sarcoma",
+    "myeloma",
+    "glioma",
+    "glioblastoma",
+    "metastatic",
+    "neoplasm",
+    "neuroblastoma",
+    "prostate",
+    "breast cancer",
+    "lung cancer",
+    "colorectal",
+    "pancreatic",
+    "ovarian",
+    "gastric",
+    "hepatic",
+    "renal cell",
+    "bladder cancer",
+    "multiple myeloma",
+]
 
 
-# ============================================================
-# HELPERS
-# ============================================================
+def is_oncology_record(record):
+    text = json.dumps(record, ensure_ascii=False).lower()
+    return any(term in text for term in ONCOLOGY_TERMS)
 
-def clean_text(text):
-    if not text:
+
+def clean_text(value):
+    if value is None:
         return ""
-
-    text = re.sub(r"\s+", " ", text)
-    return text.strip()
-
-
-def extract_date(text):
-    """
-    Extract a date such as:
-    On November 24, 2026
-    """
-    match = re.search(
-        r"(?:On\s+)?"
-        r"(January|February|March|April|May|June|July|August|"
-        r"September|October|November|December)\s+"
-        r"(\d{1,2}),\s+(\d{4})",
-        text,
-        re.IGNORECASE
-    )
-
-    if not match:
-        return ""
-
-    month = match.group(1)
-    day = match.group(2)
-    year = match.group(3)
-
-    try:
-        dt = datetime.strptime(
-            f"{month} {day} {year}",
-            "%B %d %Y"
-        )
-        return dt.strftime("%Y-%m-%d")
-    except Exception:
-        return ""
+    if isinstance(value, list):
+        return ", ".join(str(x) for x in value)
+    if isinstance(value, dict):
+        return json.dumps(value, ensure_ascii=False)
+    return str(value)
 
 
-def extract_drug_and_company(title, description):
-    """
-    Extract useful drug/company information from FDA wording.
-    Example:
-    FDA approves bezuclastinib ... (Ekitna, Cogent Biosciences, Inc)
-    """
+def extract_record(record):
+    products = record.get("products", [])
+    applications = record.get("applications", [])
 
-    drug_name = ""
-    brand_name = ""
-    company = ""
+    product = products[0] if products else {}
+    application = applications[0] if applications else {}
 
-    text = f"{title} {description}"
+    return {
+        "source": "FDA",
+        "type": "REGULATORY",
+        "title": clean_text(product.get("brand_name"))
+                 or clean_text(product.get("active_ingredients"))
+                 or "FDA oncology regulatory update",
 
-    # Generic/asset name is generally the first word after
-    # approved/grants accelerated approval to.
-    patterns = [
-        r"(?:approves|approved|approval to|approval for|"
-        r"accelerated approval to|traditional approval to)\s+"
-        r"([A-Za-z0-9\-]+)",
-    ]
+        "asset": clean_text(product.get("brand_name"))
+                 or clean_text(product.get("active_ingredients"))
+                 or "Not specified",
 
-    for pattern in patterns:
-        match = re.search(pattern, title, re.IGNORECASE)
+        "company": clean_text(application.get("sponsor_name"))
+                   or "Company not specified",
 
-        if match:
-            drug_name = match.group(1)
-            break
+        "application": clean_text(record.get("application_number"))
+                       or clean_text(application.get("application_number"))
+                       or "Not specified",
 
-    # FDA commonly writes:
-    # drug (Brand, Company)
-    paren = re.search(
-        r"\(([^()]+),\s*([^()]+)\)",
-        description
-    )
+        "action_date": clean_text(record.get("submission", [{}])[0].get("submission_status_date"))
+                       if record.get("submission") else "",
 
-    if paren:
-        brand_name = clean_text(paren.group(1))
-        company = clean_text(paren.group(2))
+        "what_happened": "FDA regulatory development",
 
-    return drug_name, brand_name, company
-
-
-def is_oncology_record(title, description):
-    """
-    Safety check.
-    The source itself is oncology-specific, but retain a small
-    validation layer so unrelated content is not accidentally
-    surfaced if FDA changes page structure.
-    """
-
-    text = f"{title} {description}".lower()
-
-    oncology_terms = [
-        "cancer",
-        "carcinoma",
-        "tumor",
-        "tumour",
-        "oncolog",
-        "lymphoma",
-        "leukemia",
-        "myeloma",
-        "melanoma",
-        "sarcoma",
-        "glioma",
-        "blastoma",
-        "neoplasm",
-        "nsclc",
-        "small cell lung",
-        "breast cancer",
-        "prostate cancer",
-        "bladder cancer",
-        "colorectal",
-        "cholangiocarcinoma",
-        "hepatocellular",
-        "pancreatic",
-        "ovarian",
-        "gastric",
-        "esophageal",
-        "head and neck",
-        "multiple myeloma",
-        "hematologic",
-        "haematologic",
-        "solid tumor",
-        "solid tumour",
-    ]
-
-    return any(term in text for term in oncology_terms)
-
-
-# ============================================================
-# MAIN COLLECTION
-# ============================================================
-
-def main():
-
-    print("Fetching FDA Oncology Approval Notifications...")
-
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 "
-            "(compatible; OncologyKnowledgeBuilder/1.0)"
-        )
+        "oncology_related": True,
     }
 
+
+def main():
+    print("Fetching FDA Drugs@FDA data...")
+
     response = requests.get(
-        FDA_URL,
-        headers=headers,
-        timeout=30
+        API_URL,
+        params={"limit": 1000},
+        timeout=60,
     )
 
     response.raise_for_status()
 
-    soup = BeautifulSoup(response.text, "html.parser")
+    data = response.json()
+    records = data.get("results", [])
 
-    records = []
+    oncology_records = [
+        extract_record(record)
+        for record in records
+        if is_oncology_record(record)
+    ]
 
-    # FDA page presents approval notifications in a table.
-    tables = soup.find_all("table")
-
-    print(f"FDA tables found: {len(tables)}")
-
-    for table in tables:
-
-        tbody = table.find("tbody")
-
-        if not tbody:
-            continue
-
-        rows = tbody.find_all("tr")
-
-        for row in rows:
-
-            cells = row.find_all(["td", "th"])
-
-            if len(cells) < 2:
-                continue
-
-            title = clean_text(cells[0].get_text(" ", strip=True))
-            description = clean_text(cells[1].get_text(" ", strip=True))
-
-            date_text = ""
-
-            if len(cells) >= 3:
-                date_text = clean_text(
-                    cells[2].get_text(" ", strip=True)
-                )
-
-            if not title:
-                continue
-
-            if not is_oncology_record(title, description):
-                continue
-
-            date = extract_date(
-                f"{date_text} {description}"
-            )
-
-            drug_name, brand_name, company = (
-                extract_drug_and_company(
-                    title,
-                    description
-                )
-            )
-
-            records.append({
-                "source": "FDA Oncology Approval Notifications",
-                "title": title,
-                "description": description,
-                "date": date or date_text,
-                "drug_name": drug_name,
-                "brand_name": brand_name,
-                "company": company,
-                "url": FDA_URL
-            })
-
-    # Remove duplicates
+    # Remove obvious duplicates
     unique = {}
-
-    for record in records:
-
+    for item in oncology_records:
         key = (
-            record["title"],
-            record["date"]
+            item["asset"],
+            item["company"],
+            item["application"],
         )
+        unique[key] = item
 
-        unique[key] = record
-
-    records = list(unique.values())
-
-    # Sort newest first
-    records.sort(
-        key=lambda x: x.get("date", ""),
-        reverse=True
-    )
-
-    # Keep latest 50
-    records = records[:50]
+    oncology_records = list(unique.values())
 
     output = {
-        "source": "FDA Oncology Approval Notifications",
-        "source_url": FDA_URL,
-        "retrieved_at": datetime.now(
-            timezone.utc
-        ).isoformat(),
+        "source": "FDA / openFDA Drugs@FDA",
+        "retrieved_at": datetime.now(timezone.utc).isoformat(),
         "records_retrieved": len(records),
-        "records": records
+        "oncology_records": len(oncology_records),
+        "records": oncology_records,
     }
 
-    with open(
-        OUTPUT_FILE,
-        "w",
-        encoding="utf-8"
-    ) as f:
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    output_file = OUTPUT_DIR / f"{today}-fda.json"
 
-        json.dump(
-            output,
-            f,
-            indent=2,
-            ensure_ascii=False
-        )
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
-    print("")
-    print("========================================")
-    print("FDA oncology collection completed")
-    print(f"Records retrieved: {len(records)}")
-    print(f"Output: {OUTPUT_FILE}")
-    print("========================================")
-
-    # Print first 5 for GitHub Actions verification
-    for i, record in enumerate(records[:5], 1):
-
-        print("")
-        print(f"{i}. {record['title']}")
-        print(f"   Date: {record['date']}")
-        print(f"   Drug: {record['drug_name']}")
-        print(f"   Company: {record['company']}")
+    print(f"FDA records retrieved: {len(records)}")
+    print(f"Oncology records found: {len(oncology_records)}")
+    print(f"Saved to: {output_file}")
 
 
 if __name__ == "__main__":
