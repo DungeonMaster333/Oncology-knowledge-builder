@@ -1,192 +1,130 @@
-import json
-import re
-from datetime import datetime, timezone
-from pathlib import Path
-from html.parser import HTMLParser
+"""FDA oncology collector using the official openFDA API (not the fda.gov website).
 
+Why: fda.gov pages sit behind bot protection that blocks GitHub's cloud servers
+(the 'abuse-detection-apology' redirect). api.fda.gov is built for scripts.
+
+Flow: Drugs@FDA approvals in the last N days -> keep NDA/BLA originals and new-indication
+(efficacy) supplements -> join to the drug label to read the indication text ->
+keep only oncology -> write data/raw/fda_oncology.json.
+
+Optional env: OPENFDA_API_KEY (free at open.fda.gov), FDA_LOOKBACK_DAYS (default 30).
+"""
+import datetime, json, os, pathlib, re, sys, time
 import requests
 
+API = "https://api.fda.gov"
+KEY = os.environ.get("OPENFDA_API_KEY", "")
+DAYS = int(os.environ.get("FDA_LOOKBACK_DAYS", "30"))
+OUT = pathlib.Path("data/raw/fda_oncology.json")
+HEAD = {"User-Agent": "oncology-knowledge-builder/1.0 (personal learning project)"}
 
-URL = "https://www.fda.gov/drugs/cancer-approvals/oncology-cancerhematologic-malignancies-approval-notifications"
-
-OUTPUT_DIR = Path("data/issues")
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-
-class FDAParser(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.in_table = False
-        self.in_row = False
-        self.in_cell = False
-        self.current_row = []
-        self.rows = []
-
-    def handle_starttag(self, tag, attrs):
-        if tag == "table":
-            self.in_table = True
-
-        if self.in_table and tag == "tr":
-            self.in_row = True
-            self.current_row = []
-
-        if self.in_row and tag in ("td", "th"):
-            self.in_cell = True
-
-    def handle_endtag(self, tag):
-        if tag in ("td", "th"):
-            self.in_cell = False
-
-        if tag == "tr" and self.in_row:
-            if self.current_row:
-                self.rows.append(self.current_row)
-            self.in_row = False
-
-        if tag == "table":
-            self.in_table = False
-
-    def handle_data(self, data):
-        if self.in_cell:
-            text = " ".join(data.split())
-            if text:
-                self.current_row.append(text)
+ONC = re.compile(r"cancer|carcinoma|tumou?r|neoplas|malignan|lymphoma|leuk[a]?emia|myeloma|melanoma|sarcoma|"
+                 r"glioma|glioblastoma|myelodysplastic|myelofibrosis|mesothelioma|blastoma|metasta", re.I)
+NOT_ONC = re.compile(r"tumor necrosis|malignant hyperthermia", re.I)  # common false positives
 
 
-def clean(text):
-    return re.sub(r"\s+", " ", text).strip()
+def is_oncology(text):
+    return bool(ONC.search(NOT_ONC.sub(" ", text or "")))
 
 
-def extract_company(description):
-    # FDA descriptions commonly contain:
-    # drug (brand, company)
-    match = re.search(
-        r"\(([^(),]+),\s*([^()]+(?:Inc\.|LLC|Ltd\.|Company|Corporation|Pharma[^,)]*)?)\)",
-        description,
-        re.IGNORECASE,
-    )
-
-    if match:
-        return clean(match.group(2))
-
-    return "Company not specified"
-
-
-def extract_asset(description):
-    match = re.search(
-        r"(?:approved|grants accelerated approval to|grants traditional approval to)\s+(.+?)\s+\(",
-        description,
-        re.IGNORECASE,
-    )
-
-    if match:
-        return clean(match.group(1))
-
-    return "Oncology asset"
+def get(path, params):
+    params = dict(params)
+    if KEY:
+        params["api_key"] = KEY
+    r = None
+    for attempt in range(4):
+        r = requests.get(API + path, params=params, headers=HEAD, timeout=60)
+        if r.status_code == 404:          # openFDA uses 404 for "no matches"
+            return {"results": []}
+        if r.status_code == 429 or r.status_code >= 500:
+            time.sleep(2 ** attempt * 2)
+            continue
+        r.raise_for_status()
+        return r.json()
+    r.raise_for_status()
 
 
-def extract_date(text):
-    match = re.search(r"(\d{1,2}/\d{1,2}/\d{4})", text)
+def recent_applications(start, end):
+    q = f"submissions.submission_status:AP AND submissions.submission_status_date:[{start} TO {end}]"
+    out, skip = [], 0
+    while True:
+        res = get("/drug/drugsfda.json", {"search": q, "limit": 100, "skip": skip}).get("results", [])
+        out += res
+        if len(res) < 100 or skip >= 1000:
+            return out
+        skip += 100
 
-    if match:
-        try:
-            return datetime.strptime(
-                match.group(1), "%m/%d/%Y"
-            ).strftime("%Y-%m-%d")
-        except ValueError:
-            pass
 
-    return ""
+def pick(app, start, end):
+    """Return one approval event for this application, or None."""
+    num = app.get("application_number", "")
+    if not num.startswith(("NDA", "BLA")):        # skip generics (ANDA)
+        return None
+    events = [s for s in app.get("submissions", [])
+              if s.get("submission_status") == "AP" and start <= s.get("submission_status_date", "") <= end
+              and (s.get("submission_type") == "ORIG"
+                   or (s.get("submission_type") == "SUPPL" and s.get("submission_class_code") == "EFFICACY"))]
+    if not events:
+        return None
+    s = max(events, key=lambda x: x["submission_status_date"])
+    prods = app.get("products") or [{}]
+    d = s["submission_status_date"]
+    return {
+        "application_number": num,
+        "brand": (prods[0].get("brand_name") or "").title(),
+        "company": app.get("sponsor_name") or "Not listed",
+        "kind": "new_product" if s.get("submission_type") == "ORIG" else "new_indication_or_efficacy_supplement",
+        "date": f"{d[:4]}-{d[4:6]}-{d[6:]}",
+    }
+
+
+def labels_for(numbers):
+    """Map application number -> newest label info (indication text, generic name, drug class)."""
+    found = {}
+    for i in range(0, len(numbers), 20):
+        chunk = numbers[i:i + 20]
+        q = "openfda.application_number:(" + " OR ".join(f'"{n}"' for n in chunk) + ")"
+        for lab in get("/drug/label.json", {"search": q, "limit": 100}).get("results", []):
+            of = lab.get("openfda", {})
+            for n in of.get("application_number", []):
+                if n in chunk and lab.get("effective_time", "") >= found.get(n, {}).get("t", ""):
+                    found[n] = {"t": lab.get("effective_time", ""),
+                                "indication": " ".join(lab.get("indications_and_usage", []))[:900],
+                                "generic": ", ".join(of.get("generic_name", [])).title(),
+                                "drug_class": ", ".join(of.get("pharm_class_epc", []))}
+    return found
 
 
 def main():
-    print("Fetching FDA Oncology Approval Notifications...")
-
-    response = requests.get(
-        URL,
-        timeout=60,
-        headers={
-            "User-Agent": "Mozilla/5.0 Oncology-Knowledge-Builder"
-        },
-    )
-
-    response.raise_for_status()
-
-    parser = FDAParser()
-    parser.feed(response.text)
-
-    records = []
-
-    for row in parser.rows:
-        row_text = " ".join(row)
-
-        date = extract_date(row_text)
-
-        if not date:
+    end_d = datetime.date.today()
+    start, end = (end_d - datetime.timedelta(days=DAYS)).strftime("%Y%m%d"), end_d.strftime("%Y%m%d")
+    print(f"openFDA approvals {start}..{end}")
+    events = [e for e in (pick(a, start, end) for a in recent_applications(start, end)) if e]
+    labels = labels_for([e["application_number"] for e in events])
+    onc, unknown = [], 0
+    for e in events:
+        lab = labels.get(e["application_number"])
+        if not lab:
+            unknown += 1
             continue
-
-        description = clean(
-            row[0] if len(row) == 1 else " ".join(row)
-        )
-
-        if len(description) < 30:
+        if not is_oncology(lab["indication"]):
             continue
-
-        records.append({
-            "source": "FDA Oncology Approval Notifications",
-            "type": "REGULATORY",
-            "title": description.split(".")[0][:180],
-            "asset": extract_asset(description),
-            "company": extract_company(description),
-            "application": "Not specified",
-            "action_date": date,
-            "what_happened": description,
-            "oncology_related": True,
-        })
-
-    # Remove duplicates
-    unique = {}
-
-    for record in records:
-        key = (
-            record["action_date"],
-            record["title"],
-        )
-        unique[key] = record
-
-    records = list(unique.values())
-
-    # Newest first
-    records.sort(
-        key=lambda x: x["action_date"],
-        reverse=True
-    )
-
-    # Keep latest 50 oncology approvals
-    records = records[:50]
-
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-
-    output = {
-        "source": "FDA Oncology Approval Notifications",
-        "retrieved_at": datetime.now(timezone.utc).isoformat(),
-        "records_retrieved": len(records),
-        "oncology_records": len(records),
-        "records": records,
-    }
-
-    output_file = OUTPUT_DIR / f"{today}-fda.json"
-
-    with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(
-            output,
-            f,
-            indent=2,
-            ensure_ascii=False
-        )
-
-    print(f"FDA oncology records found: {len(records)}")
-    print(f"Saved to: {output_file}")
+        digits = re.sub(r"\D", "", e["application_number"])
+        e.update(generic=lab["generic"], drug_class=lab["drug_class"], indication_text=lab["indication"],
+                 priority="high" if e["kind"] == "new_product" else "medium",
+                 source_url=f"https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo={digits}")
+        onc.append(e)
+    onc.sort(key=lambda x: (x["priority"] != "high", x["date"]), reverse=False)
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    OUT.write_text(json.dumps({"generated": end, "window_days": DAYS, "items": onc}, indent=1), encoding="utf-8")
+    print(f"{len(events)} approval events, {len(onc)} oncology, {unknown} without a label yet")
+    if not onc:
+        print("WARNING: zero oncology items - check the window or the API response")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as exc:          # never crash the whole daily pipeline
+        print("FDA collector failed:", exc)
+        sys.exit(1)
